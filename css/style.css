@@ -1,0 +1,112 @@
+* {
+	/* font-family: 'Courier New', monospace; */
+	font-family: 'Helvetica';
+}
+
+body {
+	background-color: #e0e0e0;
+}
+
+.year {
+	border: 1px solid red;
+}
+
+.month{
+	border: 1px solid blue;
+}
+
+.customer {
+	border: 1px solid black;
+	text-align: center;
+}
+
+.unit {
+	border: 1px solid pink;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .month {
+	border: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.monthHeader {
+	min-width: 100%;
+	text-align: center;
+}
+
+.unit {
+	min-width: 30em;
+	min-height: 20em;
+	margin: 2em;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	align-items: center;
+	border: 1px solid black;
+	border-radius: 0.5em;
+}
+
+.customerDiv {
+	min-width: 100%;
+	margin-left: 5%;
+	align-items: left;
+	/* border: 1px solid black; */
+}
+
+/* .customerHeader {
+	font-size: 100%;
+} */
+
+.customer {
+	font-size: 150%;
+	font-weight: 600;
+	color: #3d3d3d;
+}
+
+.unitNumber {
+	font-weight: 200;
+}
+
+.unitInformation {
+	border-top: 1px solid black;
+	width: 90%;
+}
+
+.company {
+	border: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+} */

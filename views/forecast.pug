@@ -1,0 +1,17 @@
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/style.css')
+	body
+		each item in calendar
+			.year
+				h1 #{item.year}
+				each month in item.months
+					.month
+						h2 #{month.name}
+						each customer in month.customers
+							.customer
+								h3 #{customer.CUSTOMER}
+								each unit in customer.units
+									.unit 
+										p #{unit.UNIT} - #{unit.inspection}
