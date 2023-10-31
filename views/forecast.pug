@@ -8,10 +8,10 @@ html
 				h1 #{item.year}
 				each month in item.months
 					.month
-						h2 #{month.name}
+						h2 #{month.month}
 						each customer in month.customers
 							.customer
-								h3 #{customer.CUSTOMER}
+								h3 #{customer.name}
 								each unit in customer.units
 									.unit 
-										p #{unit.UNIT} - #{unit.inspection}
+										p #{unit.name} - #{unit.inspection}
