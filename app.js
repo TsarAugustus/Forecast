@@ -58,7 +58,7 @@ let inspectionLimits = {
 		'P': 2,
 		'T': 5,
 		'L': 5,
-		'UC': 1,
+		'UC': 5,
 		'WF' : undefined
 	},
 	331: {
@@ -110,6 +110,13 @@ app.get('/forecast', (req, res) => {
 	// console.log(companies[0].units.find(unit => unit.name === 'T13'))
 
 	let calendar = assembleCalendar(companies)
+
+	//SANITIZE, HOT DAMM
+	calendar.forEach((year, index) => {
+		if(year.year < new Date().getFullYear()) {
+			calendar.splice(index, 1)
+		}
+	})
 	
 	res.render('forecast', { title: 'Forecast', calendar: calendar} );
 });
