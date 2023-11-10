@@ -1,7 +1,7 @@
 html
 	head
 		title= title
-		link(rel='stylesheet', href='/style.css')
+		link(rel='stylesheet', href='/css/style.css')
 	body
 		each item in calendar
 			.year
@@ -14,4 +14,5 @@ html
 								h3 #{customer.name}
 								each unit in customer.units
 									.unit 
-										p Unit# #{unit.name} - #{unit.inspection}
+										p.name Unit: #{unit.name} 
+										p.inspection Inspection: #{unit.inspection}

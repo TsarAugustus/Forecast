@@ -18,7 +18,7 @@ const upload = multer({ storage }).single('file');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, '/css')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const pug = require('pug');
 app.set('view engine', 'pug')
@@ -27,12 +27,17 @@ const XLSX = require('xlsx');
 
 app.get('/', (req, res) => {
 	console.log('home')
-  	res.sendFile(path.join(__dirname, '/index.html'));
+	res.render('index');
+  	// res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
 });
+
+app.post('/test', (req, res) => {
+	console.log('TEST WORKED')
+})
 
 app.post('/file', upload, (req, res) => {
 	console.log('post')
@@ -55,7 +60,7 @@ let inspectionLimits = {
 		'V': 1,
 		'I': 1,
 		'K': 1,
-		'P': 2,
+		'P': 5,
 		'T': 5,
 		'L': 5,
 		'UC': 5,
@@ -95,31 +100,72 @@ let months = [
 
 let companies = [];
 
-app.get('/forecast', (req, res) => {	
+function retrieveInformation(arg) {
 	const workbook = XLSX.readFile('./uploads/log.xlsx');
 	const sheetNameList = workbook.SheetNames;
 	console.log('FORECAST');
 	
 	let newControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
 	let oldControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[2]]);
-	
+
 	let oldInfo = getOldWorkbookInformation(oldControlSheetResult);
 	
 	let newInfo = getNewWorkbookInformation(newControlSheetResult);
-	
-	// console.log(companies[0].units.find(unit => unit.name === 'T13'))
 
-	let calendar = assembleCalendar(companies)
+	let calendar = assembleCalendar(companies);
+
+	if(arg === 'Audit') {
+		return oldControlSheetResult.concat(newControlSheetResult)
+	}
 
 	//SANITIZE, HOT DAMM
 	calendar.forEach((year, index) => {
 		if(year.year < new Date().getFullYear()) {
 			calendar.splice(index, 1)
 		}
-	})
+	});
+
+	return calendar;
+}
+
+app.get('/forecast', (req, res) => {
+	let calendar = retrieveInformation();
 	
 	res.render('forecast', { title: 'Forecast', calendar: calendar} );
 });
+
+app.get('/calendar', (req, res) => {
+	let calendar = retrieveInformation();
+
+	res.render('calendar', { title: 'Calendar', calendar: calendar });
+})
+
+app.get('/audit', (req, res) => {
+	let auditInformation = retrieveInformation('Audit');
+	console.log(auditInformation)
+	let specs = specificationAudit(auditInformation);
+
+	// console.log(specs)
+
+	res.render('audit', {title: 'Audit', specs: specs })
+});
+
+function specificationAudit(sheet) {
+	let specs = [];
+
+	sheet.forEach(item => {
+		if(item['TANK SPEC'] !== undefined) {
+			let tankSpec = item['TANK SPEC'].toString();
+			let thisSpec = specs.filter(specItem => specItem === tankSpec);
+			if(thisSpec.length === 0 && tankSpec !== 'Hose' && tankSpec !== 'TANK SPEC') {
+				specs.push(tankSpec);
+			}
+		}
+		
+	});
+	
+	return specs;
+}
 
 function ExcelDateToJSDate(serial) {
 	return new Date((serial - (25567 + 1))*86400*1000);
@@ -244,6 +290,10 @@ function getOldWorkbookInformation(sheet) {
 	sheet.forEach(item => {
 		let findCompany = companies.find(company => company.name === item.CUSTOMER)
 
+		if(item.CUSTOMER === 'Westcan') {
+			return
+		}
+
 		if(findCompany === undefined && item.CUSTOMER !== undefined) {
 			let newCompany = {
 				name: item.CUSTOMER,
@@ -256,6 +306,10 @@ function getOldWorkbookInformation(sheet) {
 
 	sheet.forEach(item => {
 		let findCompany = companies.find(company => company.name === item.CUSTOMER)
+		
+		if(item.CUSTOMER === 'Westcan') {
+			return
+		}
 
 		if(item.UNIT !== undefined) {
 			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString())
@@ -283,6 +337,10 @@ function getOldWorkbookInformation(sheet) {
 
 	sheet.forEach(item => {
 		let findCompany = companies.find(company => company.name === item.CUSTOMER);
+
+		if(item.CUSTOMER === 'Westcan') {
+			return
+		}
 
 		if(item.UNIT !== undefined && item.UNIT !== 'UNIT') {
 			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString());

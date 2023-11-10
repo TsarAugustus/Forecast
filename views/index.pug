@@ -1,0 +1,15 @@
+html
+	head
+		title Forecast
+		link(rel="stylesheet", href="./css/style.css")
+	body
+		h1#homeHeader Smith Tank and Trailer Repair Forecast
+		div#logo
+			img(src="./img/logo.png", alt="")
+		
+		form(id='file', method='POST', enctype='multipart/form-data', action='/file')
+			div
+				label(for="file") Upload B620 Excel Sheet
+				input(type='file' id='file' name='file')
+			div
+				button(type='submit') Submit 

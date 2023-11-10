@@ -56,8 +56,12 @@ body {
 }
 
 .unit {
-	/* border: 1px solid gray; */
+	border-bottom: 1px solid gray;
 	width: 100%;
+}
+
+.name {
+	/* color: #999; */
 }
 
 
@@ -96,9 +100,26 @@ form div {
 	/* border: 1px solid black; */
 }
 
+#test1 {
+	border: 1px solid red;
+	width: 20em;
+	height: 20em;
+}
 
+#test2 {
+	border: 1px solid blue;
+	width: 20em;
+	height: 20em;
+}
 
-
+#drag {
+	border: 1px solid black;
+	max-height: 1.5em;
+	max-width: 5em;
+	text-align: center;
+	cursor: move;
+	position: absolute;
+}
 
 
 
