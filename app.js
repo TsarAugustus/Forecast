@@ -83,6 +83,8 @@ let inspectionLimits = {
 	//NEED SPECIAL PERMITS (EG E-11903))
 }
 
+let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 let months = [
 	'January',
 	'February',
@@ -98,12 +100,27 @@ let months = [
 	'December'
 ];
 
+let daysPerMonth = {
+	January: 31,
+	February: 28,
+	March: 31,
+	April: 30,
+	May: 31,
+	June: 30,
+	July: 31,
+	August: 31,
+	September: 30,
+	October: 31,
+	November: 30,
+	December: 31
+}
+
 let companies = [];
 
 function retrieveInformation(arg) {
 	const workbook = XLSX.readFile('./uploads/log.xlsx');
 	const sheetNameList = workbook.SheetNames;
-	console.log('FORECAST');
+	// console.log('FORECAST');
 	
 	let newControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
 	let oldControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[2]]);
@@ -116,6 +133,14 @@ function retrieveInformation(arg) {
 
 	if(arg === 'Audit') {
 		return oldControlSheetResult.concat(newControlSheetResult)
+	}
+
+
+	if(!isNaN(Number(arg))) {
+		let yearToRetrieve = calendar.find(item => item.year === Number(arg));
+		// console.log(calendar)
+		// console.log('here', yearToRetrieve);
+		return yearToRetrieve;
 	}
 
 	//SANITIZE, HOT DAMM
@@ -137,7 +162,15 @@ app.get('/forecast', (req, res) => {
 app.get('/calendar', (req, res) => {
 	let calendar = retrieveInformation();
 
-	res.render('calendar', { title: 'Calendar', calendar: calendar });
+	res.render('calendar', { title: 'Calendar', calendar: calendar, year: testYear, testData: calendar[0].months[0].customers});
+});
+
+app.get('/year/:year', (req, res) => {
+	// console.log(req.params);
+	let yearToBuild = buildYear(req.params.year);
+	let year = retrieveInformation(req.params.year); 
+
+	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year})
 })
 
 app.get('/audit', (req, res) => {
@@ -145,10 +178,57 @@ app.get('/audit', (req, res) => {
 	console.log(auditInformation)
 	let specs = specificationAudit(auditInformation);
 
-	// console.log(specs)
-
 	res.render('audit', {title: 'Audit', specs: specs })
 });
+
+app.post('/confirm', (req, res) => {
+	console.log(req.body)
+})
+
+// {
+	// 	year: 2023
+	// 	months: [
+	// 		...
+	// 		December: [
+	// 			days: [
+	// 				0: 'Friday',
+	// 				1: 'Saturday',
+	// 				2: 'Sunday'
+	// 				... 
+	// 			]
+	// 		]
+	// 	]
+	// }
+
+function buildYear(year) {
+	let yearToReturn = {
+		year: year,
+		months: []
+	}
+
+	for(let month in months) {
+		yearToReturn.months.push({
+			month: months[month],
+			days: buildMonth(month, year)
+		})
+	}
+
+	return yearToReturn;
+}
+
+function buildMonth(month, year) {
+	let monthToReturn = [];
+
+	let monthDays = daysPerMonth[months[month]];
+	for(let i=0; i<monthDays; i++) {
+		monthToReturn.push({
+			date: i + 1,
+			day: days[new Date(year, month, i+1, 12).getDay()]
+		})
+	}
+
+	return monthToReturn;
+}
 
 function specificationAudit(sheet) {
 	let specs = [];

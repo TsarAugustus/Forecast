@@ -1,10 +1,36 @@
+- var i = 0
+
 html
 	head
 		title= title
 		link(rel='stylesheet', href='/css/style.css')
 	body
-		#test1.day
-		#test2.day
+		each item in calendar
+			div.yearAnchor
+				a(href="/year/" + item.year) #{item.year}
+		//- button#confirm Confirm
+		//- div#calendarDiv
+		//- 	div
+		//- 		each month in year.months
+		//- 			div.calendarMonth 
+		//- 				h1 #{month.month}
+		//- 				each day in month.days
+		//- 					div.calendarDay 
+		//- 						- var id = `${day.date}-${month.month}-${year.year}`;
+		//- 						p #{day.date} - #{day.day}
+		//- 						while i < 5
+		//- 							div(id=id+'-'+i, class='selector') 
+		//- 							- i++
+		//- 						- i = 0
+		//- 	div#sidebar
+		//- 		each customer in testData
+		//- 			div
+		//- 				p #{customer.name}
+		//- 					each unit in customer.units
+		//- 						- var thisCustomer = customer.name
+		//- 						- var thisUnit = unit.name
+		//- 						- var thisInspection = unit.inspection
+		//- 						div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection).calendarUnit
+		//- 							p.data-unit #{unit.name}
+		//- 							p.data-inspection #{unit.inspection}
 		script(type='text/javascript', src='./js/calendar.js')
-		div#drag 
-			p Draggable

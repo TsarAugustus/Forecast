@@ -1,3 +1,12 @@
+/* */
+
+.CUSTOMER-SCAMP {
+	background-color: blue;
+}
+
+
+/* */
+
 * {
 	/* font-family: 'Courier New', monospace; */
 	font-family: 'Helvetica';
@@ -51,18 +60,18 @@ body {
 	padding-bottom: 0.25em;
 }
 
-.customer div {
-	/* border: 1px solid black */
-}
+/* .customer div {
+	border: 1px solid black
+} */
 
 .unit {
 	border-bottom: 1px solid gray;
 	width: 100%;
 }
 
-.name {
-	/* color: #999; */
-}
+/* .name {
+	color: #999;
+} */
 
 
 
@@ -95,10 +104,10 @@ form {
 	/* border: 1px solid black; */
 }
 
-form div {
-	/* color: red; */
-	/* border: 1px solid black; */
-}
+/* form div {
+	color: red;
+	border: 1px solid black;
+} */
 
 #test1 {
 	border: 1px solid red;
@@ -112,17 +121,136 @@ form div {
 	height: 20em;
 }
 
-#drag {
+.drag {
 	border: 1px solid black;
-	max-height: 1.5em;
-	max-width: 5em;
-	text-align: center;
-	cursor: move;
+	height: 2em;
+	width: 10em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 }
 
+.drag p {
+	cursor: move;
+	color: red;
+	border: 1px solid red;
+}
 
+.resizer {
+	height: 0.5em;
+	width: 0.5em;
+	background-color: green;
+	position: absolute;
+	top: 50%;
+	right: 0px;
+	cursor: e-resize;
+}
 
+/* CALENDAR PAGE /CALENDAR */
+
+.calendarMonth {
+	border: 1px solid red;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	/* max-width: 80%; */
+}
+
+.calendarMonth h1 {
+	display: flex;
+	flex: 1;
+	width: 100%;
+}
+
+.calendarDay {
+	border: 1px solid blue;
+	flex: 1 0 10%;
+	padding: 1em;
+	margin: 1em;
+	max-width: 15%;
+	/* height: 10em */
+}
+
+.selector {
+	height: 2em;
+	margin: 0.5em;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.selector p {
+	margin: 1em;
+}
+
+.toggle {
+	border: 2px solid green;
+}
+
+.unitToggle {
+	border: 2px solid green !important;
+}
+
+#calendarDiv {
+	margin-top: 10em;
+	display: flex;
+	flex-direction: column;
+}
+
+.sidebar {
+	border: 1px solid black;
+	min-width: 20%;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.calendarUnitWrapper {
+	display: flex;
+	flex-direction: row;
+}
+
+.calendarUnit {
+	border: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex: 1;
+}
+
+.calendarUnit p {
+	margin: 1em;
+}
+
+.confirmed {
+	background-color: green;
+	border: 1px solid blue;
+}
+
+.status {
+	font-size: 1em;
+}
+
+.yearAnchor {
+	margin: 1em;
+}
+
+.monthDiv {
+	border: 1px solid black;
+	display: flex
+}
+
+.freeze {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+	background-color: gray;
+}
 
 
 
@@ -159,7 +287,7 @@ form div {
 	margin: 2em;
 	display: flex;
 	flex-direction: column;
-	/* justify-content: center; */
+	justify-content: center;
 	align-items: center;
 	border: 1px solid black;
 	border-radius: 0.5em;
@@ -169,12 +297,12 @@ form div {
 	min-width: 100%;
 	margin-left: 5%;
 	align-items: left;
-	/* border: 1px solid black; */
+	border: 1px solid black;
 }
 
-/* .customerHeader {
+.customerHeader {
 	font-size: 100%;
-} */
+} 
 
 .customer {
 	font-size: 150%;
