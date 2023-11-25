@@ -10,17 +10,17 @@ function getNewWorkbookInformation(sheet) {
 			let newCompany = {
 				name: item.CUSTOMER,
 				units: []
-			}
+			};
 
-			companies.push(newCompany)
+			companies.push(newCompany);
 		}
 	});
 
 	sheet.forEach(item => {
-		let findCompany = companies.find(company => company.name === item.CUSTOMER)
+		let findCompany = companies.find(company => company.name === item.CUSTOMER);
 
 		if(item.UNIT !== undefined) {
-			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString())
+			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString());
 
 			if(findUnitInCompany === undefined) {
 				let newUnit = {
@@ -35,9 +35,9 @@ function getNewWorkbookInformation(sheet) {
 						'UC': {month: 0, year: 0},
 						'WF' : {month: 0, year: 0}
 					}
-				}
+				};
 
-				findCompany.units.push(newUnit)
+				findCompany.units.push(newUnit);
 			}
 		}
 
@@ -50,14 +50,14 @@ function getNewWorkbookInformation(sheet) {
 			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString());
 			let inspectionLetter = undefined;
 			
-			if(obj === 'Visual') inspectionLetter = 'V'
-			if(obj === 'Internal') inspectionLetter = 'I'
-			if(obj === 'Leakage') inspectionLetter = 'K'
-			if(obj === 'Pressure') inspectionLetter = 'P'
-			if(obj === 'Thickness') inspectionLetter = 'T'
-			if(obj === 'Lining') inspectionLetter = 'L'
-			if(obj === 'UC') inspectionLetter = 'UC'
-			if(obj === 'WF') inspectionLetter = 'WF'
+			if(obj === 'Visual') inspectionLetter = 'V';
+			if(obj === 'Internal') inspectionLetter = 'I';
+			if(obj === 'Leakage') inspectionLetter = 'K';
+			if(obj === 'Pressure') inspectionLetter = 'P';
+			if(obj === 'Thickness') inspectionLetter = 'T';
+			if(obj === 'Lining') inspectionLetter = 'L';
+			if(obj === 'UC') inspectionLetter = 'UC';
+			if(obj === 'WF') inspectionLetter = 'WF';
 
 			let unitMonth = ExcelDateToJSDate(item.DATE).getMonth();
 			let unitYear = ExcelDateToJSDate(item.DATE).getFullYear();
@@ -76,18 +76,18 @@ function getNewWorkbookInformation(sheet) {
 				}
 
 				if(isNaN(unitYear)) {
-					console.log('HERE')
+					console.log('HERE');
 				}
 
 				if(isNaN(findUnitInCompany.inspections[inspectionLetter].year)) {
-					console.log('HMMMMM', item, ExcelDateToJSDate(item.DATE).getFullYear(), inspectionLetter)
+					console.log('HMMMMM', item, ExcelDateToJSDate(item.DATE).getFullYear(), inspectionLetter);
 				}
 
 				// console.log(findUnitInCompany, `LETTER: ${inspectionLetter}`, unitYear)
 			}
 
 		}
-	})
+	});
 }
 
 module.exports = getNewWorkbookInformation;

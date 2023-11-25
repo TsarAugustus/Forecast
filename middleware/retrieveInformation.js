@@ -12,14 +12,14 @@ function retrieveInformation(arg) {
 	let newControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
 	let oldControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[2]]);
 
-	let oldInfo = getOldWorkbookInformation(oldControlSheetResult);
+	getOldWorkbookInformation(oldControlSheetResult);
 	
-	let newInfo = getNewWorkbookInformation(newControlSheetResult);
+	getNewWorkbookInformation(newControlSheetResult);
 
 	let calendar = assembleCalendar(companies);
 
 	if(arg === 'Audit') {
-		return oldControlSheetResult.concat(newControlSheetResult)
+		return oldControlSheetResult.concat(newControlSheetResult);
 	}
 
 
@@ -33,7 +33,7 @@ function retrieveInformation(arg) {
 	//SANITIZE, HOT DAMM
 	calendar.forEach((year, index) => {
 		if(year.year < new Date().getFullYear()) {
-			calendar.splice(index, 1)
+			calendar.splice(index, 1);
 		}
 	});
 

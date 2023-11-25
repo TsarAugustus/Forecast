@@ -6,31 +6,31 @@ function getOldWorkbookInformation(sheet) {
 
 	//Get all customers
 	sheet.forEach(item => {
-		let findCompany = companies.find(company => company.name === item.CUSTOMER)
+		let findCompany = companies.find(company => company.name === item.CUSTOMER);
 
 		if(item.CUSTOMER === 'Westcan') {
-			return
+			return;
 		}
 
 		if(findCompany === undefined && item.CUSTOMER !== undefined) {
 			let newCompany = {
 				name: item.CUSTOMER,
 				units: []
-			}
+			};
 
-			companies.push(newCompany)
+			companies.push(newCompany);
 		}
 	});
 
 	sheet.forEach(item => {
-		let findCompany = companies.find(company => company.name === item.CUSTOMER)
+		let findCompany = companies.find(company => company.name === item.CUSTOMER);
 		
 		if(item.CUSTOMER === 'Westcan') {
-			return
+			return;
 		}
 
 		if(item.UNIT !== undefined) {
-			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString())
+			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString());
 
 			if(findUnitInCompany === undefined) {
 				let newUnit = {
@@ -45,9 +45,9 @@ function getOldWorkbookInformation(sheet) {
 						'UC': {month: 0, year: 0},
 						'WF' : {month: 0, year: 0}
 					}
-				}
+				};
 
-				findCompany.units.push(newUnit)
+				findCompany.units.push(newUnit);
 			}
 		}
 
@@ -57,7 +57,7 @@ function getOldWorkbookInformation(sheet) {
 		let findCompany = companies.find(company => company.name === item.CUSTOMER);
 
 		if(item.CUSTOMER === 'Westcan') {
-			return
+			return;
 		}
 
 		if(item.UNIT !== undefined && item.UNIT !== 'UNIT') {
@@ -75,7 +75,7 @@ function getOldWorkbookInformation(sheet) {
 			}
 
 			for(let letter in item.INSPECTION) {
-				inspectionLetter = item.INSPECTION[letter];
+				let inspectionLetter = item.INSPECTION[letter];
 				if(inspectionLetter === '/') {
 					continue;
 				} else if(inspectionLetter === 'U' || inspectionLetter === 'C') {
@@ -83,7 +83,7 @@ function getOldWorkbookInformation(sheet) {
 				} else if(inspectionLetter === 'W' || inspectionLetter === 'F') {
 					inspectionLetter = 'WF';
 				} else if(findUnitInCompany.inspections[inspectionLetter] === undefined) {
-					continue
+					continue;
 				}
 
 				// console.log(findUnitInCompany.inspections[inspectionLetter], inspectionLetter, 'mid', findUnitInCompany)
@@ -103,7 +103,7 @@ function getOldWorkbookInformation(sheet) {
 			}
 		}
 	
-	})
+	});
 
 	// companies.forEach(company => {
 	// 	if(company.name === 'Ken Johnson') {

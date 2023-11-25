@@ -34,6 +34,6 @@ let inspectionLimits = {
 	},
 	//NEED DOT-51/TC-51
 	//NEED SPECIAL PERMITS (EG E-11903))
-}
+};
 
 module.exports = inspectionLimits;

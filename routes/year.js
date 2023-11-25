@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const retrieveInformation = require('../middleware/retrieveInformation')
+const retrieveInformation = require('../middleware/retrieveInformation');
 
 let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -33,27 +33,27 @@ let daysPerMonth = {
 	October: 31,
 	November: 30,
 	December: 31
-}
+};
 
 router.get('/:year', (req, res) => {
 	// console.log(req.params);
 	let yearToBuild = buildYear(req.params.year);
 	let year = retrieveInformation(req.params.year); 
 
-	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year})
+	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year});
 });
 
 function buildYear(year) {
 	let yearToReturn = {
 		year: year,
 		months: []
-	}
+	};
 
 	for(let month in months) {
 		yearToReturn.months.push({
 			month: months[month],
 			days: buildMonth(month, year)
-		})
+		});
 	}
 
 	return yearToReturn;
@@ -67,7 +67,7 @@ function buildMonth(month, year) {
 		monthToReturn.push({
 			date: i + 1,
 			day: days[new Date(year, month, i+1, 12).getDay()]
-		})
+		});
 	}
 
 	return monthToReturn;

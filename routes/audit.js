@@ -6,10 +6,10 @@ const specificationAudit = require('../middleware/specificationAudit');
 
 router.get('/', (req, res) => {
 	let auditInformation = retrieveInformation('Audit');
-	console.log(auditInformation)
+	console.log(auditInformation);
 	let specs = specificationAudit(auditInformation);
 
-	res.render('audit', {title: 'Audit', specs: specs })
+	res.render('audit', {title: 'Audit', specs: specs });
 });
 
 module.exports = router;

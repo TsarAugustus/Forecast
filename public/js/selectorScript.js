@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 let selectors = document.querySelectorAll('.selector');
 
 function selectorScript() {
@@ -7,9 +9,9 @@ function selectorScript() {
 			if(selector.classList.contains('toggle')) {
 				selectedDays.push(selector);
 			} else {
-				selectedDays = selectedDays.filter(item => item.id !== selector.id)
+				selectedDays = selectedDays.filter(item => item.id !== selector.id);
 			}
 			
-		})
+		});
 	}
 }

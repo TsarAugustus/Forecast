@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 function unitScript() {
 	let units = document.querySelectorAll('.calendarUnit');
 
@@ -13,6 +15,6 @@ function unitScript() {
 				selectedUnit = undefined;
 			}
 
-		})
+		});
 	}
 }
