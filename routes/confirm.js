@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
 	let writePath = path.join(__dirname + '/../uploads/schedule.json');
 
 	fs.writeFile(writePath, upload, (err) => {
-		if(err) console.log(err);
+		if(err) console.error(err);
 
 		console.log('Schedule Changed');
 	});
