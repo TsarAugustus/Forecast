@@ -1,9 +1,17 @@
 /* */
 
 .CUSTOMER-SCAMP {
-	background-color: blue;
+	background-color: #006989;
 }
 
+.CUSTOMER-DENWILL {
+	background-color: #5762D5;
+}
+
+.CUSTOMER-NWTL {
+	background-color: #595c60;
+	color: #e6e7e9;
+}
 
 /* */
 

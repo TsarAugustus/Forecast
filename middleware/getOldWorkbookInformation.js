@@ -86,12 +86,10 @@ function getOldWorkbookInformation(sheet) {
 					continue;
 				}
 
-				// console.log(findUnitInCompany.inspections[inspectionLetter], inspectionLetter, 'mid', findUnitInCompany)
 				findUnitInCompany.inspections[inspectionLetter].month = unitMonth;
 				
 
 				let spec = item['TANK SPEC'];
-				// console.log(spec)
 				if(spec === 306 || spec === 406) {
 					findUnitInCompany.inspections[inspectionLetter].year = unitYear + inspectionLimits['406'][inspectionLetter];
 				} else if (spec === 307 || spec === 407) {
@@ -104,16 +102,6 @@ function getOldWorkbookInformation(sheet) {
 		}
 	
 	});
-
-	// companies.forEach(company => {
-	// 	if(company.name === 'Ken Johnson') {
-	// 		company.units.forEach(unit => {
-	// 			if(unit.name === 'T12') {
-	// 				console.log(unit)
-	// 			}
-	// 		})
-	// 	}
-	// })
 
 }
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 let confirmButtons = document.getElementById('confirm');
 
 function confirmButton() {
@@ -13,7 +15,7 @@ function confirmButton() {
 				let selectedCell = idSplit[3];
 
 				if((selection.innerHTML !== ' ')) {
-					console.log('SUM TING WONG')
+					console.error('Selection innerHTML not empty');
 				}
 
 				let selectedCustomer = selectedUnit.dataset.customer;
@@ -25,7 +27,7 @@ function confirmButton() {
 					confirmedSchedule.push({
 						name: selectedCustomer,
 						units: []
-					})
+					});
 				}
 				
 				let confirmedCustomer = confirmedSchedule.find(thisCustomer => thisCustomer.name === selectedCustomer);
@@ -35,7 +37,7 @@ function confirmButton() {
 						name: selectedCustomerUnit,
 						inspection: selectedInspection,
 						confirmedDates: []
-					})
+					});
 				}
 
 				let confirmedUnit = confirmedCustomer.units.find(thisUnit => thisUnit.name === selectedCustomerUnit);
@@ -46,14 +48,14 @@ function confirmButton() {
 					day: selectedDay,
 					el: selection
 				});
-			})
+			});
 
 			selectedDays.forEach(item => {
 				
 				for(let itemClass of item.classList) {
 					let splitItemClass = itemClass.split('-');
 					if(splitItemClass[0] === 'CUSTOMER') {
-						item.classList.remove(itemClass)
+						item.classList.remove(itemClass);
 					}
 				}
 
@@ -74,7 +76,7 @@ function confirmButton() {
 					item.innerHTML = filledText.innerHTML;
 
 				}
-			})
+			});
 
 			for(let item of toggled) {
 				item.classList.remove('toggle');
@@ -96,8 +98,21 @@ function confirmButton() {
 		} else {
 			selectedDays.forEach(item => {
 				item.innerHTML = placeholderText;
-			})
+			});
 		}
-
+		
 	});
+}
+
+function sendDatatoServer(confirmedSchedule) {
+	let localServer = '127.0.0.1:3000';
+
+	const xhr = new XMLHttpRequest();
+	xhr.open('POST', '/confirm');
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	const body = JSON.stringify({
+		confirmedSchedule
+	});
+
+	xhr.send(body);
 }

@@ -36,7 +36,6 @@ let daysPerMonth = {
 };
 
 router.get('/:year', (req, res) => {
-	// console.log(req.params);
 	let yearToBuild = buildYear(req.params.year);
 	let year = retrieveInformation(req.params.year); 
 

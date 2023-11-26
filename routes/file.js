@@ -16,8 +16,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }).single('file');
 
 router.post('/', upload, (req, res) => {
-	console.log('post');
-	console.log(req.body, req.file);
 	res.redirect('/forecast');
 });
 

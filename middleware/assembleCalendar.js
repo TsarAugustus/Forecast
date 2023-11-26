@@ -83,7 +83,6 @@ function assembleCalendar(info) {
 
 				let yearInCalendar = calendar.find(year => year.year === inspectionYear);
 
-				// if(yearInCalendar === undefined) console.log('here', unit)
 				if (yearInCalendar !== undefined) {
 					let monthInCalendar = yearInCalendar.months.find(month => month.index === inspectionMonth);
 
@@ -120,8 +119,6 @@ function assembleCalendar(info) {
 		});
 
 	});
-
-	// console.log(calendar[2].months[9].customers[2])
 
 	return calendar;
 }

@@ -76,14 +76,12 @@ function getNewWorkbookInformation(sheet) {
 				}
 
 				if(isNaN(unitYear)) {
-					console.log('HERE');
+					console.error('Unit Year NAN: ', unitYear);
 				}
 
 				if(isNaN(findUnitInCompany.inspections[inspectionLetter].year)) {
-					console.log('HMMMMM', item, ExcelDateToJSDate(item.DATE).getFullYear(), inspectionLetter);
+					console.error('Inspection Year NAN', item, ExcelDateToJSDate(item.DATE).getFullYear(), inspectionLetter);
 				}
-
-				// console.log(findUnitInCompany, `LETTER: ${inspectionLetter}`, unitYear)
 			}
 
 		}

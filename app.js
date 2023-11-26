@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -8,7 +9,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const pug = require('pug');
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
 
 const year = require('./routes/year');
 app.use('/year', year);
@@ -29,9 +30,20 @@ const audit = require('./routes/audit');
 app.use('/audit', audit);
 
 app.get('/', (req, res) => {
-	console.log('home')
 	res.render('index');
-  	// res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+let fs = require('fs');
+
+app.get('/savedData', (req, res) => {
+	let writePath = path.join(__dirname + '/uploads/schedule.json');
+	let savedDates;
+
+	fs.readFile(writePath, (err, data) => {
+		if(err) console.error(err);
+		savedDates = JSON.parse(data);
+		res.send(savedDates);
+	});
 });
 
 app.listen(port, () => {

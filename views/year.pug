@@ -37,7 +37,7 @@ html
 									each customer in monthItem.customers
 										p #{customer.name}
 											each unit in customer.units
-												- var customerCSSClass = customer.name.toUpperCase()
+												- var customerCSSClass = customer.name.replace(/\s+/g, '-').toUpperCase()
 												- var thisCustomer = customer.name
 												- var thisUnit = unit.name
 												- var thisInspection = unit.inspection
@@ -48,6 +48,7 @@ html
 														p #{unit.inspection}
 													button.clearUnit Clear
 		script(type='text/javascript', src='/js/sendDataToServer.js')
+		script(type='text/javascript', src='/js/getSavedData.js')
 		script(type='text/javascript', src='/js/clearButton.js')
 		script(type='text/javascript', src='/js/confirmButton.js')
 		script(type='text/javascript', src='/js/selectorScript.js')
