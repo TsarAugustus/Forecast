@@ -45,7 +45,7 @@ function clearButton() {
 												if(dateEval && customerEval && unitEval) {
 													elementFound = true;
 													elToReplace.innerHTML = ' ';
-													elToReplace.classList.remove('CUSTOMER-' + thisCustomer.toUpperCase());
+													elToReplace.classList.remove('CUSTOMER-' + thisCustomer.replace(/\s+/g, '-').toUpperCase());
 
 													customer.units = customer.units.filter(item => item.name !== thisUnit);
 							
@@ -93,7 +93,7 @@ function clearButton() {
 						if(thisUnit === unit.name) {
 							unit.confirmedDates.forEach(date => {						
 								date.el.innerHTML = ' ';
-								date.el.classList.remove('CUSTOMER-' + thisCustomer.toUpperCase());
+								date.el.classList.remove('CUSTOMER-' + thisCustomer.replace(/\s+/g, '-').toUpperCase());
 							});
 
 

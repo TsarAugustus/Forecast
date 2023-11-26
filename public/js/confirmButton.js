@@ -60,7 +60,7 @@ function confirmButton() {
 				}
 
 				let filledText = document.createElement('div');
-				item.classList.add('CUSTOMER-' + selectedUnit.dataset.customer.toUpperCase());
+				item.classList.add('CUSTOMER-' + selectedUnit.dataset.customer.replace(/\s+/g, '-').toUpperCase());
 
 				let customerText = document.createElement('p');
 				customerText.innerHTML = selectedUnit.dataset.customer;

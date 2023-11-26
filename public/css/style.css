@@ -5,12 +5,14 @@
 }
 
 .CUSTOMER-DENWILL {
-	background-color: #5762D5;
+	background-color: #1a2651;
+	color: white;
 }
 
 .CUSTOMER-NWTL {
-	background-color: #595c60;
-	color: #e6e7e9;
+	/* background-color: #595c60; */
+	background-image: linear-gradient(white, gray) !important;
+	/* color: #e6e7e9; */
 }
 
 /* */
@@ -88,7 +90,7 @@ body {
 #homeHeader {
 	text-align: center;
 	padding-bottom: 1em;
-	margin-top: 5%;;
+	margin-top: 5%;
 	border-bottom: 1px solid #e5e5e5;
 }
 
@@ -183,11 +185,12 @@ form {
 .selector {
 	height: 2em;
 	margin: 0.5em;
-	border: 1px solid black;
+	border: 1px solid gray;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	border-radius: 1em;
 }
 
 .selector p {
