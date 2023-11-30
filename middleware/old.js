@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-const companies = require('./companies');
+const companies = require("./companies");
 
 let months = [
 	'January',
@@ -46,65 +45,64 @@ function assembleCalendar(info) {
 	info.forEach(company => {
 		company.units.forEach(unit => {
 			for(let inspection in unit.inspections) {
-				let inspectionInterval = unit.inspections[inspection].interval;
 				let inspectionYear = unit.inspections[inspection].year;
 				let inspectionMonth = unit.inspections[inspection].month;
+				let inspectionInterval = unit.inspections[inspection].interval; 
+
+				let currentYear = new Date().getFullYear();
 
 				if(inspectionInterval !== 0) {
-					currentYear = inspectionYear;
-
 					while(currentYear <= yearLimit) {
 						let yearInCalendar = calendar.find(year => year.year === currentYear);
 
-						if(yearInCalendar) {
-							let monthInCalendar = yearInCalendar.months.find(month => month.index === inspectionMonth);
-							let companyName = '';
+						if(yearInCalendar !== undefined) {
+							let monthInCalendar = yearInCalendar.months.find(month => month.index === inspectionMonth) ;
 
-							if(company.name.includes('Superior')) {
-								companyName = 'Superior';
-							} else if(company.name.includes('Enex')) {
-								companyName = 'FuelEx';
-							} else if(company.name.includes('Summit')) {
-								companyName = 'Summit';
+							if(monthInCalendar !== undefined) {
+								let customerInMonth = monthInCalendar.customers.find(customer => customer.name === company.name);
+
+								if(!customerInMonth) {
+									let newCustomer = {
+										name: company.name,
+										units: []
+									};
+
+									monthInCalendar.customers.push(newCustomer);
+
+								} else {
+									// console.log('CUSTOMER EXISTS: ', customerInMonth);
+								}
+
+								//Redundant?
+								monthInCalendar.customers.find(customer => customer.name === company.name);
+
+								if(customerInMonth !== undefined) {
+									let unitInCustomerMonth = customerInMonth.units.find(thisUnit => thisUnit.name === unit.name);
+
+									if(unitInCustomerMonth === undefined) {
+										let newUnit = {
+											name: unit.name,
+											inspection: ''
+										};
+
+										customerInMonth.units.push(newUnit);
+									}
+
+									unitInCustomerMonth = customerInMonth.units.find(thisUnit => thisUnit.name === unit.name);
+									unitInCustomerMonth.inspection += inspection;
+
+									if(unitInCustomerMonth && unit.name === '70' && customerInMonth.name === 'Summit Propane') {
+										console.log(unitInCustomerMonth, unit, inspection, currentYear);
+
+									}
+								}
 							}
-							
-							if(companyName === '') {
-								companyName = company.name;
-							}
-							
-							if(!monthInCalendar.customers.find(customer => customer.nickname === companyName)) {
-								
-
-								let newCustomer = {
-									name: company.name,
-									nickname: companyName,
-									units: []
-								};
-								
-								monthInCalendar.customers.push(newCustomer);
-							}
-
-							let customerInMonth = monthInCalendar.customers.find(customer => customer.nickname === companyName);
-
-							
-							if(!customerInMonth.units.find(thisUnit => thisUnit.name === unit.name)) {
-								let newUnit = {
-									name: unit.name,
-									inspection: ''
-								};
-
-								customerInMonth.units.push(newUnit);
-							}
-							
-							let unitInCustomerMonth = customerInMonth.units.find(thisUnit => thisUnit.name === unit.name);
-
-							if(unitInCustomerMonth.inspection.includes(inspection) === false) unitInCustomerMonth.inspection += inspection;
 						}
 
-						
 						currentYear += inspectionInterval;
 					}
 				}
+				
 			}
 		});
 	});

@@ -1,6 +1,7 @@
 let companies = require('./companies');
 const ExcelDateToJSDate = require('./ExcelDateToJSDate');
 const inspectionLimits = require('./inspectionLimits');
+const getName = require('./getName');
 
 function getOldWorkbookInformation(sheet) {
 
@@ -29,21 +30,23 @@ function getOldWorkbookInformation(sheet) {
 			return;
 		}
 
+		// Create Function for New/Old workbook info to change names (replace etc)
+
 		if(item.UNIT !== undefined) {
-			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString());
+			let findUnitInCompany = findCompany.units.find(unit => getName(unit.name) === getName(item.UNIT));
 
 			if(findUnitInCompany === undefined) {
 				let newUnit = {
-					name: item.UNIT.toString(),
+					name: getName(item.UNIT),
 					inspections: {
-						'V': {month: 0, year: 0},
-						'I': {month: 0, year: 0},
-						'K': {month: 0, year: 0},
-						'P': {month: 0, year: 0},
-						'T': {month: 0, year: 0},
-						'L': {month: 0, year: 0},
-						'UC': {month: 0, year: 0},
-						'WF' : {month: 0, year: 0}
+						'V': {month: 0, year: 0, interval: 0},
+						'I': {month: 0, year: 0, interval: 0},
+						'K': {month: 0, year: 0, interval: 0},
+						'P': {month: 0, year: 0, interval: 0},
+						'T': {month: 0, year: 0, interval: 0},
+						'L': {month: 0, year: 0, interval: 0},
+						'UC': {month: 0, year: 0, interval: 0},
+						'WF' : {month: 0, year: 0, interval: 0}
 					}
 				};
 
@@ -61,7 +64,7 @@ function getOldWorkbookInformation(sheet) {
 		}
 
 		if(item.UNIT !== undefined && item.UNIT !== 'UNIT') {
-			let findUnitInCompany = findCompany.units.find(unit => unit.name.toString() === item.UNIT.toString());
+			let findUnitInCompany = findCompany.units.find(unit => getName(unit.name) === getName(item.UNIT));
 
 			let unitMonth = ExcelDateToJSDate(item.DATE).getMonth();
 			let unitYear = ExcelDateToJSDate(item.DATE).getFullYear();
@@ -87,16 +90,22 @@ function getOldWorkbookInformation(sheet) {
 				}
 
 				findUnitInCompany.inspections[inspectionLetter].month = unitMonth;
-				
 
+				
+				
 				let spec = item['TANK SPEC'];
 				if(spec === 306 || spec === 406) {
 					findUnitInCompany.inspections[inspectionLetter].year = unitYear + inspectionLimits['406'][inspectionLetter];
+					findUnitInCompany.inspections[inspectionLetter].interval = inspectionLimits['406'][inspectionLetter];
 				} else if (spec === 307 || spec === 407) {
 					findUnitInCompany.inspections[inspectionLetter].year = unitYear + inspectionLimits['407'][inspectionLetter];
+					findUnitInCompany.inspections[inspectionLetter].interval = inspectionLimits['407'][inspectionLetter];
 				} else if (spec === 330 || spec === 331) {
 					findUnitInCompany.inspections[inspectionLetter].year = unitYear + inspectionLimits['331'][inspectionLetter];
+					findUnitInCompany.inspections[inspectionLetter].interval = inspectionLimits['331'][inspectionLetter];
 				}
+
+				// console.log('OLD SHEET: ', findUnitInCompany.inspections)
 
 			}
 		}

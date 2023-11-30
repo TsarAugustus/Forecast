@@ -22,23 +22,24 @@ html
 					div.calendarMonth
 						div.monthHeader
 							h1 #{month.month}
-						each day in month.days
-							div.calendarDay 
-								- var id = `${day.date}-${month.month}-${yearToBuild.year}`;
-								p #{day.date} - #{day.day}
-								while i < 5
-									div(id=id+'-'+i, class='selector') 
-									- i++
-								- i = 0
+						div.calendarDayWrapper
+							each day in month.days
+								div.calendarDay 
+									- var id = `${day.date}-${month.month}-${yearToBuild.year}`;
+									p #{day.date} - #{day.day}
+									while i < 5
+										div(id=id+'-'+i, class='selector') 
+										- i++
+									- i = 0
 					div.sidebar
 						each monthItem in year.months
 							if monthItem.month === month.month
 								p  #{monthItem.month}
 									each customer in monthItem.customers
-										p #{customer.name}
+										p #{customer.nickname}
 											each unit in customer.units
-												- var customerCSSClass = customer.name.replace(/\s+/g, '-').toUpperCase()
-												- var thisCustomer = customer.name
+												- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
+												- var thisCustomer = customer.nickname
 												- var thisUnit = unit.name
 												- var thisInspection = unit.inspection
 												div.calendarUnitWrapper

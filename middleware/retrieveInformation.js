@@ -28,11 +28,11 @@ function retrieveInformation(arg) {
 	}
 
 	//SANITIZE, HOT DAMM
-	calendar.forEach((year, index) => {
-		if(year.year < new Date().getFullYear()) {
-			calendar.splice(index, 1);
-		}
-	});
+	// calendar.forEach((year, index) => {
+	// 	if(year.year < new Date().getFullYear()) {
+	// 		calendar.splice(index, 1);
+	// 	}
+	// });
 
 	return calendar;
 }

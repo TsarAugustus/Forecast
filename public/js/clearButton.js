@@ -10,10 +10,6 @@ function clearButton() {
 					.then(function(response) {
 						return response.json();
 					}).then(function(data) {
-					// writeSavedData(data.confirmedSchedule);
-					// confirmedSchedule = data.confirmedSchedule;
-					// clearButton(data.confirmedSchedule);
-
 						let unitEl;
 
 						for(let item of button.parentElement.children) {
