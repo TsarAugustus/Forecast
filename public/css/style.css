@@ -19,15 +19,12 @@
 }
 
 .CUSTOMER-NWTL {
-	/* background-color: #595c60; */
 	background-image: linear-gradient(white, gray) !important;
-	/* color: #e6e7e9; */
 }
 
 /* */
 
 * {
-	/* font-family: 'Courier New', monospace; */
 	font-family: 'Helvetica';
 }
 
@@ -46,8 +43,7 @@ body {
 	padding-bottom: 2em;
 }
 
-.month{
-	/* border: 1px solid blue; */
+.month {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -66,7 +62,6 @@ body {
 	border-radius: 1em;
 	margin: 1em;
 	padding: 1em;
-	/* width: 15%; */
 	height: max-content;
 	background-color: #f4f4f4;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -79,19 +74,10 @@ body {
 	padding-bottom: 0.25em;
 }
 
-/* .customer div {
-	border: 1px solid black
-} */
-
 .unit {
 	border-bottom: 1px solid gray;
 	width: 100%;
 }
-
-/* .name {
-	color: #999;
-} */
-
 
 
 /* HOME PAGE */
@@ -120,13 +106,7 @@ form {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	/* border: 1px solid black; */
 }
-
-/* form div {
-	color: red;
-	border: 1px solid black;
-} */
 
 #test1 {
 	border: 1px solid red;
@@ -171,40 +151,38 @@ form {
 .calendarMonth {
 	border: 1px solid red;
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
-	min-width: 80%;
-	max-width: 80%;
-	height: 125vh;
 	overflow: hidden;
 }
 
-.calendarMonth h1 {
-	display: flex;
-	flex: 1;
-	width: 100%;
+
+
+.monthHeader {
+	text-align: center;
+}
+
+.dayHeader {
+	text-align: center;
 }
 
 .calendarDayWrapper {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);;
 }
 
 .calendarDay {
-	border: 1px solid blue;
-	/* flex: 1 0 10%; */
-	/* padding: 1em; */
-	/* margin: 0.2em; */
-	max-width: 14%;
-	min-width: 14%;
-	/* width: 15%; */
-	/* height: 10em */
+	border: 0.1em solid black;
+	padding: 0.5em;
+	box-shadow:
+    1px 1px 2px 0px #00000060,
+    3px 3px 6px 0 #7E856Eb0,
+    5px 5px 12px 0 #7E856E70,
+    7px 7px 30px #7E856E30;
+	margin: 0.5em;
 }
 
 .selector {
 	height: 2em;
-	/* margin: 0.5em; */
 	border: 1px solid gray;
 	width: 100%;
 	display: flex;
@@ -234,14 +212,10 @@ form {
 
 .sidebar {
 	border: 1px solid black;
-	min-width: 20%;
-	max-width: 20%;
 	display: flex;
-	height: 125vh;
+	height: 150vh;
 	flex-direction: column;
-	max-height: max-content;
-	overflow-y: auto;
-	flex-grow: 1;
+	overflow-y: scroll;
 }
 
 .calendarUnitWrapper {
@@ -259,6 +233,13 @@ form {
 
 .calendarUnit p {
 	margin: 1em;
+	display: grid;
+	grid-template-columns: 1fr 2fr 2fr;
+
+}
+
+.inspection {
+	
 }
 
 .confirmed {
@@ -276,8 +257,9 @@ form {
 
 .monthDiv {
 	border: 1px solid black;
-	/* max-height: 150vh; */
-	display: flex
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	
 }
 
 .freeze {
@@ -288,76 +270,3 @@ form {
 	width: 100%;
 	background-color: gray;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .month {
-	border: 1px solid black;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.monthHeader {
-	min-width: 100%;
-	text-align: center;
-}
-
-.unit {
-	min-width: 30em;
-	min-height: 20em;
-	margin: 2em;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid black;
-	border-radius: 0.5em;
-}
-
-.customerDiv {
-	min-width: 100%;
-	margin-left: 5%;
-	align-items: left;
-	border: 1px solid black;
-}
-
-.customerHeader {
-	font-size: 100%;
-} 
-
-.customer {
-	font-size: 150%;
-	font-weight: 600;
-	color: #3d3d3d;
-}
-
-.unitNumber {
-	font-weight: 200;
-}
-
-.unitInformation {
-	border-top: 1px solid black;
-	width: 90%;
-}
-
-.company {
-	border: 1px solid black;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-} */

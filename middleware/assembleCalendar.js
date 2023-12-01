@@ -66,6 +66,8 @@ function assembleCalendar(info) {
 								companyName = 'FuelEx';
 							} else if(company.name.includes('Summit')) {
 								companyName = 'Summit';
+							} else if(company.name.includes('Kodiak')) {
+								companyName = 'Kodiak';
 							}
 							
 							if(companyName === '') {

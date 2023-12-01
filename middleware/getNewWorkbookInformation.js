@@ -1,7 +1,7 @@
 let companies = require('./companies');
 let ExcelDateToJSDate = require('./ExcelDateToJSDate');
 let inspectionLimits = require('./inspectionLimits');
-let getName = require('./getName')
+let getName = require('./getName');
 
 function getNewWorkbookInformation(sheet) {
 	sheet.forEach(item => {

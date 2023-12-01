@@ -63,10 +63,19 @@ function buildMonth(month, year) {
 
 	let monthDays = daysPerMonth[months[month]];
 	for(let i=0; i<monthDays; i++) {
-		monthToReturn.push({
+		let newDay = {
 			date: i + 1,
-			day: days[new Date(year, month, i+1, 12).getDay()]
-		});
+			day: days[new Date(year, month, i+1, 12).getDay()],
+			offset: undefined
+		};
+
+		if(newDay.day === 'Sunday') {
+			newDay.offset = 7;
+		} else {
+			newDay.offset = new Date(year, month, i+1, 12).getDay();
+		}
+
+		monthToReturn.push(newDay);
 	}
 
 	return monthToReturn;
