@@ -7,12 +7,14 @@ html
 			.year
 				h1 #{item.year}
 				each month in item.months
+					- var monthCustomers = 0
 					.month
 						h2 #{month.month}
 						each customer in month.customers
 							.customer
 								h3 #{customer.nickname}
 								each unit in customer.units
+									- monthCustomers++
 									.unit 
 										p.name Unit: #{unit.name} 
 										p.inspection Inspection: #{unit.inspection}

@@ -1,8 +1,66 @@
+- var i = 0
 
 html
 	head
 		title= title
 		link(rel='stylesheet', href='/css/style.css')
 	body
+		div.freeze
+			a(href='/year/' + previousYear) #{previousYear}
+			h1 #{yearHeader}
+			a(href='/year/' + nextYear) #{nextYear}
+			button#confirm Confirm
+			div
+				each month in yearToBuild.months
+					a(href='#' + month.month) #{month.month}
+		div.monthViewHeader
+			h1 #{month}
+		div.monthView
+			div.calendarDayWrapper
+				<span class='dayHeader'>Mon</span>
+				<span class='dayHeader'>Tue</span>
+				<span class='dayHeader'>Wed</span>
+				<span class='dayHeader'>Thu</span>
+				<span class='dayHeader'>Fri</span>
+				<span class='dayHeader'>Sat</span>
+				<span class='dayHeader'>Sun</span>
+
+				each day in monthHTMLInfo.days
+					if day.date === 1
+						div(style=`grid-column-start: ${day.offset}`).calendarDay
+							- var id = `${day.date}-${monthHTMLInfo.month}-${yearToBuild.year}`;
+							p #{day.date} - #{day.day}
+							while i < 5
+								div(id=id+'-'+i, class='selector') 
+								- i++
+							- i = 0
+					else
+						div.calendarDay 
+							- var id = `${day.date}-${monthHTMLInfo.month}-${yearToBuild.year}`;
+							p #{day.date} - #{day.day}
+							while i < 5
+								div(id=id+'-'+i, class='selector') 
+								- i++
+							- i = 0
+			div.sidebar
+				each customer in monthCustomerInfo.customers
+					p #{customer.nickname}
+						each unit in customer.units
+							- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
+							- var thisCustomer = customer.nickname
+							- var thisUnit = unit.name
+							- var thisInspection = unit.inspection
+							div.calendarUnitWrapper
+								div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection, class='CUSTOMER-' + customerCSSClass).calendarUnit
+									p.status 🗙
+									p #{unit.name}
+									p.inspection #{unit.inspection}
+								button.clearUnit Clear
 		
-		script(type='text/javascript', src='./js/calendar.js')
+		script(type='text/javascript', src='/js/sendDataToServer.js')
+		script(type='text/javascript', src='/js/getSavedData.js')
+		script(type='text/javascript', src='/js/clearButton.js')
+		script(type='text/javascript', src='/js/confirmButton.js')
+		script(type='text/javascript', src='/js/selectorScript.js')
+		script(type='text/javascript', src='/js/unitScript.js')
+		script(type='text/javascript', src='/js/calendar.js')

@@ -42,6 +42,17 @@ router.get('/:year', (req, res) => {
 	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year});
 });
 
+router.get('/:year/:month', (req, res) => {
+	let reqMonth = req.params.month;
+	let yearToBuild = buildYear(req.params.year);
+	let year = retrieveInformation(req.params.year);
+	let monthHTMLInfo = yearToBuild.months.find(thisMonth => thisMonth.month === reqMonth);
+	let monthCustomerInfo = year.months.find(thisMonth => thisMonth.month === reqMonth);
+	
+
+	res.render('month', { yearToBuild: yearToBuild, year: year, monthHTMLInfo: monthHTMLInfo, monthCustomerInfo: monthCustomerInfo, month: reqMonth});
+});
+
 function buildYear(year) {
 	let yearToReturn = {
 		year: year,

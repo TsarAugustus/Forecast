@@ -18,7 +18,15 @@ function writeSavedData(arr) {
 				let newEl = document.createElement('div');
 				while(elementFound === false) {
 					let elToReplace = document.getElementById(`${date.day}-${date.month}-${date.year}-${elementIteration}`);
+
+					if(elToReplace === null) {
+						break;
+					}
+
 					if (elToReplace.innerHTML === ' '){
+						let sidebarCustomer = document.querySelectorAll(`[data-customer=${customer.name}]`);
+						updateSidebarCustomer(sidebarCustomer, unit);
+						
 						elementFound = true;
 						
 						elToReplace.classList.add(`CUSTOMER-${customer.name.replace(/\s+/g, '-').toUpperCase()}`);
@@ -43,4 +51,24 @@ function writeSavedData(arr) {
 			});
 		});
 	});
+}
+
+function updateSidebarCustomer(sidebarCustomer, unit) {
+	if(sidebarCustomer.length > 0) {
+		for(let sidebarUnit of sidebarCustomer) {
+			updateSidebarUnit(sidebarUnit, unit);
+			
+		}
+	}
+}
+
+function updateSidebarUnit(sidebarUnit, unit) {
+	if(sidebarUnit.dataset.unit === unit.name) {
+		sidebarUnit.classList.add('confirmed');
+	}
+	for(let child of sidebarUnit.children) {
+		if(child.classList.contains('status')) {
+			child.innerHTML = '✔';
+		}
+	}
 }

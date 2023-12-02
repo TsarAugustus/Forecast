@@ -38,6 +38,10 @@ module.exports = {
 		'semi': [
 			'error',
 			'always'
+		],
+		'max-depth' : [
+			'error',
+			2
 		]
 	}
 };

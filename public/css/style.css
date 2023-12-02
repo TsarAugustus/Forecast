@@ -19,7 +19,29 @@
 }
 
 .CUSTOMER-NWTL {
-	background-image: linear-gradient(white, gray) !important;
+
+	background-image: linear-gradient(
+		45deg,
+		hsl(0deg 0% 47%) 1%,
+		hsl(344deg 0% 53%) 43%,
+		hsl(344deg 0% 58%) 50%,
+		hsl(344deg 0% 64%) 51%,
+		hsl(344deg 0% 70%) 51%,
+		hsl(344deg 0% 76%) 49%,
+		hsl(344deg 0% 82%) 49%,
+		hsl(344deg 0% 88%) 50%,
+		hsl(344deg 0% 94%) 57%,
+ 	 hsl(0deg 0% 100%) 99%
+	);
+}
+
+.CUSTOMER-KIEWIT {
+	background-color: #f0d83e;
+}
+
+.CUSTOMER-SUPERIOR {
+	background-color: #ffc637;
+	color: #c3293f;
 }
 
 /* */
@@ -239,12 +261,14 @@ form {
 }
 
 .inspection {
-	
+
 }
 
 .confirmed {
-	background-color: green;
+	background-color: green !important;
 	border: 1px solid blue;
+	background-image: linear-gradient(green, green) !important;
+	color: black;
 }
 
 .status {
@@ -269,4 +293,18 @@ form {
 	z-index: 999;
 	width: 100%;
 	background-color: gray;
+}
+
+/* MONTH VIEW */
+.monthView {
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	max-height: 100vh;
+	transition: grid-template-rows 0.5s ease-in-out;
+}
+
+.monthViewHeader {
+	text-align: center;
+	padding-top: 1em;
+	padding-bottom: 2em;
 }
