@@ -37,21 +37,39 @@ let daysPerMonth = {
 
 router.get('/:year', (req, res) => {
 	let yearToBuild = buildYear(req.params.year);
-	let year = retrieveInformation(req.params.year); 
-
+	let year = retrieveInformation(req.params.year);
+	
 	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year});
 });
 
-router.get('/:year/:month', (req, res) => {
+router.get('/:year/month/:month', (req, res) => {
 	let reqMonth = req.params.month;
 	let yearToBuild = buildYear(req.params.year);
 	let year = retrieveInformation(req.params.year);
 	let monthHTMLInfo = yearToBuild.months.find(thisMonth => thisMonth.month === reqMonth);
 	let monthCustomerInfo = year.months.find(thisMonth => thisMonth.month === reqMonth);
 	
-
 	res.render('month', { yearToBuild: yearToBuild, year: year, monthHTMLInfo: monthHTMLInfo, monthCustomerInfo: monthCustomerInfo, month: reqMonth});
 });
+
+router.get('/:year/month/:month/day/:day', (req, res) => {
+	let reqYear = req.params.year;
+	let reqMonth = req.params.month;
+	let reqDay = req.params.day;
+
+	let yearToBuild = buildYear(req.params.year);
+	let monthHTMLInfo = yearToBuild.months.find(thisMonth => thisMonth.month === reqMonth);
+	let dayHTMLInfo = monthHTMLInfo.days.find(thisDay => thisDay.date === Number(reqDay));
+
+	
+	let year = retrieveInformation(req.params.year);
+	let monthCustomerInfo = year.months.find(thisMonth => thisMonth.month === reqMonth);
+	
+	// console.log(monthCustomerInfo.customers[0])
+	res.render('day', {thisYear: reqYear, thisMonth: reqMonth, thisDay: reqDay, thisDate: dayHTMLInfo, monthCustomerInfo: monthCustomerInfo });
+
+});
+
 
 function buildYear(year) {
 	let yearToReturn = {

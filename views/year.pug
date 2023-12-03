@@ -21,7 +21,8 @@ html
 				div(id=month.month).monthDiv
 					div.calendarMonth
 						div.monthHeader
-							h1 #{month.month}
+							a(href=`month/${month.month}`) 
+								h1 #{month.month}
 						div.calendarDayWrapper
 							<span class='dayHeader'>Mon</span>
 							<span class='dayHeader'>Tue</span>
@@ -35,7 +36,8 @@ html
 								if day.date === 1
 									div(style=`grid-column-start: ${day.offset}`).calendarDay
 										- var id = `${day.date}-${month.month}-${yearToBuild.year}`;
-										p #{day.date} - #{day.day}
+										a(href=`month/${month.month}/day/${day.date}`)
+											p #{day.date} - #{day.day}
 										while i < 5
 											div(id=id+'-'+i, class='selector') 
 											- i++
@@ -43,7 +45,8 @@ html
 								else
 									div.calendarDay 
 										- var id = `${day.date}-${month.month}-${yearToBuild.year}`;
-										p #{day.date} - #{day.day}
+										a(href=`month/${month.month}/day/${day.date}`)
+											p #{day.date} - #{day.day}
 										while i < 5
 											div(id=id+'-'+i, class='selector') 
 											- i++
@@ -65,7 +68,7 @@ html
 														p #{unit.name}
 														p.inspection #{unit.inspection}
 													button.clearUnit Clear
-		script(type='text/javascript', src='/js/sendDataToServer.js')
+													
 		script(type='text/javascript', src='/js/getSavedData.js')
 		script(type='text/javascript', src='/js/clearButton.js')
 		script(type='text/javascript', src='/js/confirmButton.js')

@@ -300,11 +300,21 @@ form {
 	display: grid;
 	grid-template-columns: 4fr 1fr;
 	max-height: 100vh;
-	transition: grid-template-rows 0.5s ease-in-out;
 }
 
 .monthViewHeader {
 	text-align: center;
 	padding-top: 1em;
 	padding-bottom: 2em;
+}
+
+/* DAY VIEW */
+
+.dayView {
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+}
+
+.dayHeader {
+	padding: 1em;
 }

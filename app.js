@@ -42,10 +42,12 @@ app.get('/savedData', (req, res) => {
 	fs.readFile(writePath, (err, data) => {
 		if(err) console.error(err);
 		savedDates = JSON.parse(data);
+		console.log('APP SAVED DATA', savedDates);
 		res.send(savedDates);
 	});
 });
 
 app.listen(port, () => {
+	// console.log(app._router.stack);
 	console.log(`Example app listening on port ${port}`);
 });
