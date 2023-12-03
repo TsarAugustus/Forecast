@@ -6,7 +6,6 @@ function getName(item) {
 	if(newString.charAt(newString.length - 1) === 'P') {
 		newString = newString.slice(0, -1);
 	} else if (newString.charAt(newString.length - 1) === 'B' && !newString.toUpperCase().includes('UNIT')) {
-		// console.log(newString)
 		newString = newString.slice(0, -1);
 	}
 

@@ -104,9 +104,6 @@ function getOldWorkbookInformation(sheet) {
 					findUnitInCompany.inspections[inspectionLetter].year = unitYear + inspectionLimits['331'][inspectionLetter];
 					findUnitInCompany.inspections[inspectionLetter].interval = inspectionLimits['331'][inspectionLetter];
 				}
-
-				// console.log('OLD SHEET: ', findUnitInCompany.inspections)
-
 			}
 		}
 	

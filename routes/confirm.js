@@ -11,8 +11,7 @@ router.post('/', (req, res) => {
 	fs.readFile(writePath, (err, data) => {
 		if(err) console.error(err);
 
-		let newItem = req.body.confirmedSchedule[0];
-		
+		let newItem = req.body.confirmedSchedule[0];		
 
 		let previousSchedule = JSON.parse(data);
 		let previousCustomer = previousSchedule.confirmedSchedule.find(customer => customer.name === newItem.name);
@@ -26,14 +25,10 @@ router.post('/', (req, res) => {
 			if(!previousUnit) {
 				previousCustomer.units.push(thisUnit);
 			} else {
-				console.log(thisUnit.confirmedDates.length, thisUnit.confirmedDates);
 				thisUnit.confirmedDates.forEach(date => {
 					previousUnit.confirmedDates.push(date);
 				});
 			}
-			// console.log('unit', previousUnit, thisUnit)
-			// console.log('here', previousCustomer)
-			// console.log('CUSTOMER EXISTS');
 		}
 
 		fs.writeFile(writePath, JSON.stringify(previousSchedule), (err) => {
@@ -42,12 +37,6 @@ router.post('/', (req, res) => {
 			console.log('Schedule Changed');
 		});
 	});
-
-	// fs.writeFile(writePath, upload, (err) => {
-	// 	if(err) console.error(err);
-
-	// 	console.log('Schedule Changed');
-	// });
 });
 
 module.exports = router;

@@ -1,15 +1,10 @@
 /* eslint-disable no-unused-vars */
 function getSavedData(arg) {
-	let confirmedSchedule;
-	console.log('getSavedData');
-
 	if(arg) {
-		console.log('arg', arg);
 		fetch('/savedData')
 			.then(function(response) {
 				return response.json();
 			}).then(function(data) {
-				// console.log('getSavedData(): Saved Data: ', data);
 				return data.confirmedSchedule;
 			});
 	} else {
@@ -17,7 +12,6 @@ function getSavedData(arg) {
 			.then(function(response) {
 				return response.json();
 			}).then(function(data) {
-				console.log('getSavedData(): Saved Data: ', data);
 				writeSavedData(data.confirmedSchedule);
 			});
 	}
@@ -25,7 +19,6 @@ function getSavedData(arg) {
 }
 
 function writeSavedData(arr) {
-	console.log('writeSavedData');
 	arr.forEach(customer => {
 		customer.units.forEach(unit => {
 			unit.confirmedDates.forEach(date => {

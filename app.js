@@ -34,20 +34,52 @@ app.get('/', (req, res) => {
 });
 
 let fs = require('fs');
+let writePath = path.join(__dirname + '/uploads/schedule.json');
 
 app.get('/savedData', (req, res) => {
-	let writePath = path.join(__dirname + '/uploads/schedule.json');
 	let savedDates;
 
 	fs.readFile(writePath, (err, data) => {
 		if(err) console.error(err);
+
 		savedDates = JSON.parse(data);
-		console.log('APP SAVED DATA', savedDates);
 		res.send(savedDates);
 	});
 });
 
+app.post('/clear', (req, res) => {
+	fs.readFile(writePath, (err, data) => {
+		if(err) console.error(err);
+
+		let customer = req.body.customer;
+		let unit = req.body.unit;
+
+		let savedSchedule = JSON.parse(data);
+
+		savedSchedule.confirmedSchedule.forEach((thisCustomer, customerIndex) => {
+			if(thisCustomer.name === customer) {
+				thisCustomer.units.forEach((thisUnit, unitIndex) => {
+					if(thisUnit.name === unit) {
+						thisCustomer.units.splice(unitIndex, 1);
+					}
+				});
+			}
+			
+			if(thisCustomer.units.length === 0) {
+				savedSchedule.confirmedSchedule.splice(customerIndex, 1);
+			}
+		});
+
+		fs.writeFile(writePath, JSON.stringify(savedSchedule), (err) => {
+			if(err) console.error(err);
+
+			console.log('Schedule Changed');
+		});
+
+	});
+
+});
+
 app.listen(port, () => {
-	// console.log(app._router.stack);
 	console.log(`Example app listening on port ${port}`);
 });

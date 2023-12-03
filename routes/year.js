@@ -65,7 +65,6 @@ router.get('/:year/month/:month/day/:day', (req, res) => {
 	let year = retrieveInformation(req.params.year);
 	let monthCustomerInfo = year.months.find(thisMonth => thisMonth.month === reqMonth);
 	
-	// console.log(monthCustomerInfo.customers[0])
 	res.render('day', {thisYear: reqYear, thisMonth: reqMonth, thisDay: reqDay, thisDate: dayHTMLInfo, monthCustomerInfo: monthCustomerInfo });
 
 });

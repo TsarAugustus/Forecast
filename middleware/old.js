@@ -90,11 +90,6 @@ function assembleCalendar(info) {
 
 									unitInCustomerMonth = customerInMonth.units.find(thisUnit => thisUnit.name === unit.name);
 									unitInCustomerMonth.inspection += inspection;
-
-									if(unitInCustomerMonth && unit.name === '70' && customerInMonth.name === 'Summit Propane') {
-										console.log(unitInCustomerMonth, unit, inspection, currentYear);
-
-									}
 								}
 							}
 						}
@@ -136,7 +131,7 @@ function OLDassembleCalendar(info) {
 					};
 
 					if (unit.inspections[inspection].year === isNaN(unit.inspections[inspection].year) || unit.inspections[inspection].year === 0) {
-						console.log(company, unit);
+						console.error('NAN', company, unit);
 					}
 
 					months.forEach((month, index) => {
