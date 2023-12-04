@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 let selectors = document.querySelectorAll('.selector');
 
-function selectorScript() {
+function selectorScript(arg) {
 	for(let selector of selectors) {
 		selector.addEventListener('click',  (e) => {
 			selector.classList.toggle('toggle');

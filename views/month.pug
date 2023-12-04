@@ -44,21 +44,9 @@ html
 								div(id=id+'-'+i, class='selector') 
 								- i++
 							- i = 0
-			div.sidebar
-				each customer in monthCustomerInfo.customers
-					p #{customer.nickname}
-						each unit in customer.units
-							- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
-							- var thisCustomer = customer.nickname
-							- var thisUnit = unit.name
-							- var thisInspection = unit.inspection
-							div.calendarUnitWrapper
-								div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection, class='CUSTOMER-' + customerCSSClass).calendarUnit
-									p.status 🗙
-									p #{unit.name}
-									p.inspection #{unit.inspection}
-								button.clearUnit Clear
-
+			
+			include includes/sidebar.pug
+		script(type='text/javascript', src='/js/create.js')
 		script(type='text/javascript', src='/js/getSavedData.js')
 		script(type='text/javascript', src='/js/clearButton.js')
 		script(type='text/javascript', src='/js/confirmButton.js')

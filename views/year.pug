@@ -21,7 +21,7 @@ html
 				div(id=month.month).monthDiv
 					div.calendarMonth
 						div.monthHeader
-							a(href=`month/${month.month}`) 
+							a(href=`/year/${yearToBuild.year}/month/${month.month}`) 
 								h1 #{month.month}
 						div.calendarDayWrapper
 							<span class='dayHeader'>Mon</span>
@@ -36,7 +36,7 @@ html
 								if day.date === 1
 									div(style=`grid-column-start: ${day.offset}`).calendarDay
 										- var id = `${day.date}-${month.month}-${yearToBuild.year}`;
-										a(href=`month/${month.month}/day/${day.date}`)
+										a(href=`/year/${yearToBuild.year}/month/${month.month}/day/${day.date}`)
 											p #{day.date} - #{day.day}
 										while i < 5
 											div(id=id+'-'+i, class='selector') 
@@ -45,30 +45,18 @@ html
 								else
 									div.calendarDay 
 										- var id = `${day.date}-${month.month}-${yearToBuild.year}`;
-										a(href=`month/${month.month}/day/${day.date}`)
+										a(href=`/year/${yearToBuild.year}/month/${month.month}/day/${day.date}`)
 											p #{day.date} - #{day.day}
 										while i < 5
 											div(id=id+'-'+i, class='selector') 
 											- i++
 										- i = 0
-					div.sidebar
-						each monthItem in year.months
-							if monthItem.month === month.month
-								p  #{monthItem.month}
-									each customer in monthItem.customers
-										p #{customer.nickname}
-											each unit in customer.units
-												- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
-												- var thisCustomer = customer.nickname
-												- var thisUnit = unit.name
-												- var thisInspection = unit.inspection
-												div.calendarUnitWrapper
-													div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection, class='CUSTOMER-' + customerCSSClass).calendarUnit
-														p.status 🗙
-														p #{unit.name}
-														p.inspection #{unit.inspection}
-													button.clearUnit Clear
-													
+					each monthCustomerInfo in year.months
+						if(monthCustomerInfo.month === month.month)
+							include includes/sidebar.pug
+							script(type='text/javascript', src='/js/create.js')
+
+		//- script(type='text/javascript', src='/js/create.js')		
 		script(type='text/javascript', src='/js/getSavedData.js')
 		script(type='text/javascript', src='/js/clearButton.js')
 		script(type='text/javascript', src='/js/confirmButton.js')

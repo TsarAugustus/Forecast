@@ -70,7 +70,7 @@ function assembleCalendar(info) {
 									monthInCalendar.customers.push(newCustomer);
 
 								} else {
-									// console.log('CUSTOMER EXISTS: ', customerInMonth);
+									console.error('CUSTOMER EXISTS: ', customerInMonth);
 								}
 
 								//Redundant?
@@ -122,8 +122,6 @@ function OLDassembleCalendar(info) {
 	info.forEach(company => {
 		company.units.forEach(unit => {
 			for (let inspection in unit.inspections) {
-				// let thisInspection = unit.inspections[inspection];
-
 				if (!calendar.find(year => year.year === unit.inspections[inspection].year) && unit.inspections[inspection].year !== 0 && !isNaN(unit.inspections[inspection].year)) {
 					let newYear = {
 						year: unit.inspections[inspection].year,
@@ -143,8 +141,6 @@ function OLDassembleCalendar(info) {
 
 						newYear.months.push(newMonth);
 					});
-
-					// console.log('CALENDAR: ', unit);
 
 					calendar.push(newYear);
 				}
@@ -244,19 +240,16 @@ function createFutureCalendar(company, unit, inspection, calendar) {
 	let yearLimit = 2033;
 	let currentYear = 0;
 	if(calendar.find(year => year.year === nextInspectionDate) && nextInspectionDate <= yearLimit) {
-		// console.log('here', nextInspectionDate, unit.inspections[inspection]);
-
 		currentYear = unit.inspections[inspection].year;
 
 		console.log(company, nextInspectionDate);
 
 		while(currentYear <= yearLimit) {
-			// console.log(currentYear);
 			currentYear++;
 		}
 
 	} else {
-		// console.log('No Year: ', nextInspectionDate);
+		console.error('No Year: ', nextInspectionDate);
 	}
 }
 

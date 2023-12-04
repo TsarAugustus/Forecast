@@ -59,12 +59,16 @@ app.post('/clear', (req, res) => {
 		savedSchedule.confirmedSchedule.forEach((thisCustomer, customerIndex) => {
 			if(thisCustomer.name === customer) {
 				thisCustomer.units.forEach((thisUnit, unitIndex) => {
-					if(thisUnit.name === unit) {
+					if(thisUnit.name === unit && !req.body.custom) {
 						thisCustomer.units.splice(unitIndex, 1);
+					}
+
+					if(req.body.custom) {
+						thisUnit.confirmedDates = [];
 					}
 				});
 			}
-			
+
 			if(thisCustomer.units.length === 0) {
 				savedSchedule.confirmedSchedule.splice(customerIndex, 1);
 			}
@@ -78,6 +82,58 @@ app.post('/clear', (req, res) => {
 
 	});
 
+});
+
+app.post('/create', (req, res) => {
+	let title = req.body.title;
+	let info = req.body.info;
+	let other = req.body.other;
+
+	fs.readFile(writePath, (err, data) => {
+		if(err) console.error(err);
+
+		let savedSchedule = JSON.parse(data);
+		let customerInSchedule = savedSchedule.confirmedSchedule.find(customer => customer.name.toUpperCase() === title.toUpperCase() );
+
+		if(customerInSchedule) {
+			let unitInSchedule = customerInSchedule.units.find(unit => unit.name.toUpperCase() === info.toUpperCase());
+
+			if(unitInSchedule) {
+				console.error('ITEM EXISTS', unitInSchedule);
+			} else {
+				let newItem = {
+					name: info,
+					inspection: other,
+					customValue: req.body.customValue,
+					custom: true,
+					confirmedDates: []
+				};
+
+				customerInSchedule.units.push(newItem);
+			}
+		} else {
+			let item = {
+				name: title,
+				custom: true,
+				customValue: req.body.customValue,
+				units: []
+			};
+
+			item.units.push({
+				name: info,
+				inspection: other,
+				confirmedDates: []
+			});
+
+			savedSchedule.confirmedSchedule.push(item);			
+		}
+
+		fs.writeFile(writePath, JSON.stringify(savedSchedule), (err) => {
+			if(err) console.error(err);
+
+			console.log('Schedule Changed');
+		});
+	});
 });
 
 app.listen(port, () => {

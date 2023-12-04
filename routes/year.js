@@ -38,8 +38,12 @@ let daysPerMonth = {
 router.get('/:year', (req, res) => {
 	let yearToBuild = buildYear(req.params.year);
 	let year = retrieveInformation(req.params.year);
+
+	let info = {
+		thisYear: req.params.year
+	};
 	
-	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year});
+	res.render('year', { yearHeader: Number(req.params.year), yearToBuild: yearToBuild, year: year, info: info});
 });
 
 router.get('/:year/month/:month', (req, res) => {
@@ -48,8 +52,13 @@ router.get('/:year/month/:month', (req, res) => {
 	let year = retrieveInformation(req.params.year);
 	let monthHTMLInfo = yearToBuild.months.find(thisMonth => thisMonth.month === reqMonth);
 	let monthCustomerInfo = year.months.find(thisMonth => thisMonth.month === reqMonth);
+
+	let info = {
+		thisYear: req.params.year,
+		thisMonth: req.params.month
+	};
 	
-	res.render('month', { yearToBuild: yearToBuild, year: year, monthHTMLInfo: monthHTMLInfo, monthCustomerInfo: monthCustomerInfo, month: reqMonth});
+	res.render('month', { yearToBuild: yearToBuild, year: year, monthHTMLInfo: monthHTMLInfo, monthCustomerInfo: monthCustomerInfo, month: reqMonth, info: info});
 });
 
 router.get('/:year/month/:month/day/:day', (req, res) => {
@@ -64,8 +73,14 @@ router.get('/:year/month/:month/day/:day', (req, res) => {
 	
 	let year = retrieveInformation(req.params.year);
 	let monthCustomerInfo = year.months.find(thisMonth => thisMonth.month === reqMonth);
+
+	let info = {
+		thisYear: req.params.year,
+		thisMonth: req.params.month,
+		thisDay: req.params.day
+	};
 	
-	res.render('day', {thisYear: reqYear, thisMonth: reqMonth, thisDay: reqDay, thisDate: dayHTMLInfo, monthCustomerInfo: monthCustomerInfo });
+	res.render('day', {thisYear: reqYear, thisMonth: reqMonth, thisDay: reqDay, thisDate: dayHTMLInfo, monthCustomerInfo: monthCustomerInfo, info: info });
 
 });
 

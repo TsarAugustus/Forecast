@@ -7,7 +7,7 @@ let selectedDays = [];
 
 let confirmedSchedule = [];
 
-// sendDataToServer();
+create();
 getSavedData();
 clearButton();
 confirmButton();

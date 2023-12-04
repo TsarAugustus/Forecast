@@ -60,6 +60,8 @@ function confirmButton() {
 			
 			xhr.send(body);
 			location.reload();
+		} else {
+			console.error('IS UNDEFINED');
 		}
 	});
 }
@@ -74,6 +76,9 @@ function addUnitsToCells() {
 		}
 
 		let filledText = document.createElement('div');
+		if(!selectedUnit.dataset.customer) {
+			console.error('NO DATASET IN SELECTED UNIT');
+		}
 		item.classList.add('CUSTOMER-' + selectedUnit.dataset.customer.replace(/\s+/g, '-').toUpperCase());
 
 		let customerText = document.createElement('p');
@@ -101,7 +106,7 @@ function addUnitsToCells() {
 	}
 
 	selectedUnit.classList.remove('unitToggle');
-	selectedUnit.classList.add('confirmed');
+	// selectedUnit.classList.add('confirmed');
 
 	for(let child of selectedUnit.children) {
 		if(child.classList.contains('status')) {
