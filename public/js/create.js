@@ -1,7 +1,7 @@
-let createButton = document.querySelectorAll('.create');
 
 // eslint-disable-next-line no-unused-vars
 function create() {
+	let createButton = document.querySelectorAll('.create');
 	for(let button of createButton) {
 		button.addEventListener('click', () => {
 			let parentEl = button.parentElement;
@@ -10,6 +10,8 @@ function create() {
 
 			let buttonYear = button.dataset.year;
 			let buttonMonth = button.dataset.month;
+
+			// button.toggleAttribute('creationClick')
 
 			if(!customDiv) {
 				let newEl = document.createElement('div');
@@ -26,13 +28,13 @@ function create() {
 				let otherEl = document.createElement('input');
 				otherEl.placeholder = 'Inspection/Other';
 				newEl.appendChild(otherEl);
-
+				
 				let submitEl = document.createElement('button');
 				submitEl.innerHTML = 'Submit';
 				newEl.appendChild(submitEl);
 
 				submitEl.addEventListener('click', () => {
-					let titleValue = titleEl.value;
+					let titleValue = titleEl.value.replace(/\s+/g, '-');
 					let infoValue = infoEl.value;
 					let otherValue = otherEl.value;
 
@@ -56,8 +58,6 @@ function create() {
 					xhr.send(body);
 					location.reload();
 				});
-
-				newEl.appendChild(titleEl);
 
 				parentEl.appendChild(newEl);
 			}

@@ -1,25 +1,52 @@
-div(id=`Sidebar-${info.thisMonth}-${info.thisYear}`).sidebar
-	div.creation
-		if info.thisDay
-			button(data-year=info.thisYear, data-month=info.thisMonth).create Create Item #{info.thisDay}-#{info.thisMonth}-#{info.thisYear}
-		else if info.thisMonth
-			button(data-year=info.thisYear, data-month=info.thisMonth).create Create Item #{info.thisMonth}-#{info.thisYear}
-		else if info.thisYear
-			button(data-year=info.thisYear, data-month=monthCustomerInfo.month).create Create Item #{info.thisYear}-#{monthCustomerInfo.month}
-	div.createdItems
-		p CUSTOM ITEMS
-	each customer in monthCustomerInfo.customers
-		div(class=`${customer.nickname}`).customerSidebar
-			p #{customer.nickname}
-				div.units
-					each unit in customer.units
-						- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
-						- var thisCustomer = customer.nickname
-						- var thisUnit = unit.name
-						- var thisInspection = unit.inspection
-						div.calendarUnitWrapper
-							div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection, class='CUSTOMER-' + customerCSSClass).calendarUnit
-								p.status 🗙
-								p #{unit.name}
-								p.inspection #{unit.inspection}
-							button.clearUnit Clear
+if info.thisMonth
+	div(id=`Sidebar-${info.thisMonth}-${info.thisYear}`).sidebar
+		p Custom Calender Items
+		div.creation
+			if info.thisDay
+				button(data-year=info.thisYear, data-month=info.thisMonth).create Create Item #{info.thisDay}-#{info.thisMonth}-#{info.thisYear}
+			else if info.thisMonth
+				button(data-year=info.thisYear, data-month=info.thisMonth).create Create Item #{info.thisMonth}-#{info.thisYear}
+			else if info.thisYear
+				button(data-year=info.thisYear, data-month=monthCustomerInfo.month).create Create Item #{info.thisYear}-#{monthCustomerInfo.month}
+		div.createdItems
+		each customer in monthCustomerInfo.customers
+			div(class=`${customer.nickname}`).customerSidebar
+				p.customerName #{customer.nickname}
+					div.units
+						each unit in customer.units
+							- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
+							- var thisCustomer = customer.nickname
+							- var thisUnit = unit.name
+							- var thisInspection = unit.inspection
+							div.calendarUnitWrapper
+								div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection, class='CUSTOMER-' + customerCSSClass).calendarUnit
+									p.status 🗙
+									p #{unit.name}
+									p.inspection #{unit.inspection}
+								button.clearUnit Clear
+else
+	div(id=`Sidebar-${month.month}-${info.thisYear}`).sidebar
+		p Custom Calender Items
+		div.creation
+			if info.thisDay
+				button(data-year=info.thisYear, data-month=info.thisMonth).create Create Item #{info.thisDay}-#{info.thisMonth}-#{info.thisYear}
+			else if info.thisMonth
+				button(data-year=info.thisYear, data-month=info.thisMonth).create Create Item #{info.thisMonth}-#{info.thisYear}
+			else if info.thisYear
+				button(data-year=info.thisYear, data-month=monthCustomerInfo.month).create Create Item #{info.thisYear}-#{monthCustomerInfo.month}
+		div.createdItems
+		each customer in monthCustomerInfo.customers
+			div(class=`${customer.nickname}`).customerSidebar
+				p.customerName #{customer.nickname}
+					div.units
+						each unit in customer.units
+							- var customerCSSClass = customer.nickname.replace(/\s+/g, '-').toUpperCase()
+							- var thisCustomer = customer.nickname
+							- var thisUnit = unit.name
+							- var thisInspection = unit.inspection
+							div.calendarUnitWrapper
+								div(data-customer=thisCustomer, data-unit=thisUnit , data-inspection=thisInspection, class='CUSTOMER-' + customerCSSClass).calendarUnit
+									p.status 🗙
+									p #{unit.name}
+									p.inspection #{unit.inspection}
+								button.clearUnit Clear

@@ -4,17 +4,21 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/css/style.css')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Inter')
 	body
-		div.freeze
-			a(href='/year/' + previousYear) #{previousYear}
-			h1 #{yearHeader}
-			a(href='/year/' + nextYear) #{nextYear}
-			button#confirm Confirm
-			div
+		div.freeze.monthFreezePane
+			div.monthNavigation.monthViewNavigation
 				each month in yearToBuild.months
-					a(href='#' + month.month) #{month.month}
+					a(href=`/year/${yearToBuild.year}/month/` + month.month) #{month.month}
+			div#confirm.monthViewConfirm
+				button Confirm
+			div.hideSidebarButton
+					a#hideSidebarText
 		div.monthViewHeader
+			h1 #{yearToBuild.year}
 			h1 #{month}
+			h3 Go back to 
+				a(href=`/year/${yearToBuild.year}`).link #{yearToBuild.year} 
 		div.monthView
 			div.calendarDayWrapper
 				<span class='dayHeader'>Mon</span>
@@ -30,8 +34,9 @@ html
 						div(style=`grid-column-start: ${day.offset}`).calendarDay
 							- var id = `${day.date}-${monthHTMLInfo.month}-${yearToBuild.year}`;
 							a(href=`${monthHTMLInfo.month}/day/${day.date}`)
-											p #{day.date} - #{day.day}
-							while i < 5
+								p.day #{day.date} 
+								//- - #{day.day}
+							while i < 6
 								div(id=id+'-'+i, class='selector') 
 								- i++
 							- i = 0
@@ -39,8 +44,9 @@ html
 						div.calendarDay 
 							- var id = `${day.date}-${monthHTMLInfo.month}-${yearToBuild.year}`;
 							a(href=`${monthHTMLInfo.month}/day/${day.date}`)
-											p #{day.date} - #{day.day}
-							while i < 5
+								p.day #{day.date}
+								//-  - #{day.day}
+							while i < 6
 								div(id=id+'-'+i, class='selector') 
 								- i++
 							- i = 0

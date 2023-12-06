@@ -94,10 +94,14 @@ function addUnitToYear(yearInCalendar, inspectionMonth, company, unit, inspectio
 	let companyName = '';
 
 
-	if(company.name.includes('Superior'))	companyName = 'Superior';
-	if(company.name.includes('Enex'))		companyName = 'FuelEx';
-	if(company.name.includes('Summit'))		companyName = 'Summit';
-	if(company.name.includes('Kodiak'))		companyName = 'Kodiak';
+	if(company.name.includes('Superior'))		companyName = 'Superior';
+	if(company.name.includes('Enex'))			companyName = 'FuelEx';
+	if(company.name.includes('Summit'))			companyName = 'Summit';
+	if(company.name.includes('Kodiak'))			companyName = 'Kodiak';
+	if(company.name.includes('Otter'))			companyName = 'Otter';
+	if(company.name.includes('Paz'))			companyName = 'Paz';
+	if(company.name.includes('KJTL'))			companyName = 'Ken Johnson';
+	if(company.name.includes('Petro Value')) 	companyName = 'KMP';
 	
 	if(companyName === '') {
 		companyName = company.name;

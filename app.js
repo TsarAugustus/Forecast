@@ -100,6 +100,15 @@ app.post('/create', (req, res) => {
 
 			if(unitInSchedule) {
 				console.error('ITEM EXISTS', unitInSchedule);
+				let newItem = {
+					name: info,
+					inspection: other,
+					customValue: req.body.customValue,
+					custom: true,
+					confirmedDates: []
+				};
+
+				customerInSchedule.units.push(newItem);
 			} else {
 				let newItem = {
 					name: info,
@@ -134,6 +143,17 @@ app.post('/create', (req, res) => {
 			console.log('Schedule Changed');
 		});
 	});
+});
+
+app.get('/today', (req, res) => {
+	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	// res.render('day', {thisYear: reqYear, thisMonth: reqMonth, thisDay: reqDay, thisDate: dayHTMLInfo, monthCustomerInfo: monthCustomerInfo, info: info });
+	let today = new Date();
+	let todayYear = today.getFullYear();
+	let todayMonth = monthNames[today.getMonth()];
+	let todayDate = today.getDate();
+	// console.log(today.getFullYear(), monthNames[today.getMonth()], today.getDate())
+	res.redirect(`/year/${todayYear}/month/${todayMonth}/day/${todayDate}`);
 });
 
 app.listen(port, () => {

@@ -1,8 +1,198 @@
 /* */
 
+/* GREENS
+
+KMP
+#00954c
+
+CANGAS
+#6ab335
+
+GREENROADS
+#90bd2a
+
+PAZ
+#97db00
+
+SUMMIT
+#7dac42
+
+#97db00
+#6ab335
+#90bd2a
+
+BLUES
+
+SCAMP
+#2fa1ee
+
+POGO
+#003167
+
+KJ
+#0e0d88
+
+DENWILL
+#1b2554 */
+
+* {
+	font-family: 'Inter' !important;
+}
+
+.CUSTOMER-VI {
+	background-color: red;
+}
+
+/* - North Arm Transportation
+hot pink */
+.CUSTOMER-NORTH-ARM {
+	/* background-color: #ca0791; */
+	/* color: #080046; */
+}
+
+
+/* - Alchemist Specialty Carriers
+red */
+.CUSTOMER-ALCHEMIST {
+	background-color: #941C2F;
+	color: white;
+}
+
+/* - Otter Coop
+fiery orange/tangerine orange or whatever */
+.CUSTOMER-OTTER {
+
+}
+
+/* - CTGas
+orange */
+
+.CUSTOMER-CT-GAS {
+
+}
+
+/* - Superior Propane
+yellow */
+
+.CUSTOMER-SUPERIOR {
+	background-color: #FFD400;
+}
+
+/* - Summit Propane
+grass green */
+
+.CUSTOMER-SUMMIT {
+	background-color: #305926;
+	color: white;
+}
+
+/* - PAZ
+neon green */
+.CUSTOMER-PAZ {
+	background-color: #93d500;
+	color: #263053;
+}
+
+/* - Green Roads Recycling 
+somewhere between grass and forest green */
+.CUSTOMER-GREEN-ROADS {
+
+}
+
+/* - KMP
+forest green */
+.CUSTOMER-KMP {
+	background-color: #1c3227;
+	color: white;
+}
+
+/* - POGO Propane
+bluey green/sea foam */
+.CUSTOMER-POGO {
+
+}
+
+/* - Scamp Transport LTD
+cyan/robins egg */
 .CUSTOMER-SCAMP {
-	background-color: #006989;
-	box-shadow:
+	background-color: #20A4F3;
+}
+
+/* - Denwill
+bright blue */
+.CUSTOMER-DENWILL {
+	background-color: #090446;
+	color: white;
+}
+
+/* - Cangas
+Darkish turquoisey blue */
+.CUSTOMER-CANGAS {
+
+}
+
+.CUSTOMER-DESERT-CARDLOCK {
+	background-color: silver;
+}
+/* 
+- Ken Johnson Trucking
+navy blue  */
+.CUSTOMER-KEN-JOHNSON {
+	background-color: #0C0A3E;
+	color: #EEE;
+}
+
+/* - Kiewit
+gold */
+.CUSTOMER-KIEWIT {
+	background-color: #c9aa16;
+}
+
+/* - Northwest Tanklines
+silver */
+.CUSTOMER-NWTL {
+	background-color: silver;
+}
+
+/* - Cariboo Propane
+bronze */
+.CUSTOMER-CARIBOO {
+
+}
+
+/* - Federated Coop
+white */
+.CUSTOMER-FEDERATED {
+
+}
+
+/* - Arc Ashphalt
+black  */
+.CUSTOMER-ARC {
+	
+}
+
+.CUSTOMER-LG-FUEL {
+	background-color: #d39433;
+}
+
+.CUSTOMER-PROPANE-DEPOT {
+	background-color: #008000;
+	color: white;
+}
+
+.CUSTOMER-KODIAK {
+	background-color: #454918;
+	color: white;
+}
+
+.CUSTOMER-PATRICK {
+	background-color: yellow;
+}
+
+/* SHADOW
+
+box-shadow:
     1px 1px 2px 0px #00000060,
     3px 3px 6px 0 #7E856Eb0,
     5px 5px 12px 0 #7E856E70,
@@ -11,40 +201,8 @@
     inset 5px 5px 10px 0 #C9EAEC80,
     inset -1px -1px 1px 0 #1A414370,
     inset -12px -12px 12px -8px #1A414310; */
-}
+	
 
-.CUSTOMER-DENWILL {
-	background-color: #1a2651;
-	color: white;
-}
-
-.CUSTOMER-NWTL {
-
-	/* background-image: linear-gradient(
-		45deg,
-		hsl(0deg 0% 47%) 1%,
-		hsl(344deg 0% 53%) 43%,
-		hsl(344deg 0% 58%) 50%,
-		hsl(344deg 0% 64%) 51%,
-		hsl(344deg 0% 70%) 51%,
-		hsl(344deg 0% 76%) 49%,
-		hsl(344deg 0% 82%) 49%,
-		hsl(344deg 0% 88%) 50%,
-		hsl(344deg 0% 94%) 57%,
- 	 hsl(0deg 0% 100%) 99%
-	); */
-	background-image: linear-gradient(white, rgb(105, 105, 105));
-}
-
-.CUSTOMER-KIEWIT {
-	/* background-color: #f0d83e; */
-	background-color: gold;
-}
-
-.CUSTOMER-SUPERIOR {
-	background-color: #ffc637;
-	color: #c3293f;
-}
 
 /* */
 
@@ -173,10 +331,14 @@ form {
 /* CALENDAR PAGE /CALENDAR */
 
 .calendarMonth {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	display: flex;
+	flex: 1 1 100%;
 	flex-direction: column;
 	overflow: hidden;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	/* margin-right: 1em; */
 }
 
 
@@ -187,11 +349,12 @@ form {
 
 .dayHeader {
 	text-align: center;
+	margin-top: 5em;
 }
 
 .calendarDayWrapper {
 	display: grid;
-	grid-template-columns: repeat(7, 1fr);;
+	grid-template-columns: repeat(7, 1fr);
 }
 
 .calendarDay {
@@ -203,21 +366,42 @@ form {
     5px 5px 12px 0 #7E856E70,
     7px 7px 30px #7E856E30;
 	margin: 0.5em;
+	/* margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-left: 0.25em;
+	margin-right: 0.25em; */
+}
+
+.calendarDay a {
+	color: black;
+	text-decoration: none;
+}
+
+.calendarDay a:hover {
+	color: black;
+	text-decoration: underline;
 }
 
 .selector {
-	height: 2em;
+	height: 3em;
 	border: 1px solid gray;
 	width: 100%;
-	display: flex;
+	/* display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
-	border-radius: 1em;
+	align-items: center; */
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	border-radius: 0.5em;
 }
 
-.selector p {
-	margin: 1em;
+.selector > p {
+	/* margin: 1em; */
+	/* font-size: 0.75em; */
+	font-size: 1.5vmin;
+	/* margin: 0.1em; */
+	/* padding: 0.1em; */
+	text-align: center;
 }
 
 .toggle {
@@ -237,9 +421,11 @@ form {
 .sidebar {
 	border: 1px solid black;
 	display: flex;
-	height: 150vh;
 	flex-direction: column;
 	overflow-y: scroll;
+	flex-shrink: 3;
+	max-height: 100rem;
+	/* padding-left: 1em; */
 }
 
 .calendarUnitWrapper {
@@ -270,7 +456,6 @@ form {
 	/* background-color: green !important; */
 	border: 5px solid green;
 	/* background-image: linear-gradient(green, green) !important; */
-	color: black;
 }
 
 .status {
@@ -282,10 +467,14 @@ form {
 }
 
 .monthDiv {
-	border: 1px solid black;
-	display: grid;
-	grid-template-columns: 4fr 1fr;
-	
+	/* border: 1px solid black; */
+	/* display: grid;
+	grid-template-columns: 4fr 1fr; */
+	display: flex;
+	/* align-items: stretch; */
+	margin-top: 1em;
+	padding-bottom: 1em;
+	border-bottom: 2px solid black;
 }
 
 .freeze {
@@ -294,7 +483,73 @@ form {
 	left: 0;
 	z-index: 999;
 	width: 100%;
-	background-color: gray;
+	background-color: #C9C9C9;
+
+	box-shadow:
+    1px 1px 2px 0px #00000060,
+    3px 3px 6px 0 #7E856Eb0,
+    5px 5px 12px 0 #7E856E70,
+    7px 7px 30px #7E856E30;
+    /* inset 1px 1px 2px 0px #ffffff70,
+    inset 5px 5px 10px 0 #C9EAEC80,
+    inset -1px -1px 1px 0 #1A414370,
+    inset -12px -12px 12px -8px #1A414310; */
+
+	/* display: flex; */
+}
+
+.yearFreezePane {
+	/* display: grid;
+	grid-template-columns: 2fr 4fr 1fr; */
+	display: flex;
+	flex-direction: column;
+}
+
+.seperator {
+	display: flex;
+}
+
+.monthNavigation {
+	color: red;
+	display: flex;
+	flex-grow: 1;
+	justify-content: center;
+}
+
+.monthNavigation a {
+	color: black !important;
+	text-decoration: none;
+	margin: 1em;
+}
+
+.monthNavigation a:hover {
+	text-decoration: underline;
+}
+
+.monthViewNavigation {
+	width: 90vw;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+}
+
+.monthHeader {
+	/* background-color: #e1edf2; */
+}
+
+.monthHeader a {
+	color: black !important;
+	text-decoration: none;
+	/* margin: 1em; */
+}
+
+.monthFreezePane {
+	/* height: 10vh */
+	display: flex;
+}
+
+.monthHeader a:hover {
+	text-decoration: underline;
 }
 
 /* MONTH VIEW */
@@ -306,17 +561,161 @@ form {
 
 .monthViewHeader {
 	text-align: center;
-	padding-top: 1em;
-	padding-bottom: 2em;
+	padding-top: 5em;
 }
 
 /* DAY VIEW */
 
 .dayView {
-	display: grid;
-	grid-template-columns: 4fr 1fr;
+	/* display: grid;
+	grid-template-columns: 4fr 1fr; */
+	display: flex;
+}
+.dayViewCalendarDay {
+	/* flex-grow: 3 !important; */
+	flex: 1 1 100%;
+}
+.dayViewSidebar {
+	flex-shrink: 3 !important;
 }
 
 .dayHeader {
 	padding: 1em;
+}
+
+#confirm {
+	display: flex;
+	justify-content: right;
+	align-items: right;
+}
+
+#confirm button {
+	background-color: #006400;
+	border: 1px solid black;
+	color: white;
+	/* height: 2.5em; */
+	/* width: 5em; */
+	text-align: center;
+}
+
+#confirm button:active {
+	background-color: #17B169;
+	border: 1px solid black;
+	color: white;
+	/* height: 2.5em; */
+	/* width: 5em; */
+	text-align: center;
+}
+
+.monthViewConfirm {
+	display: flex;
+	flex-grow: 1;
+}
+
+.yearConfirmButton {
+	display: flex;
+	/* flex-grow: 1; */
+}
+
+.yearLinks {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.yearLinks h1 {
+	margin-right: 1em;
+	margin-left: 1em;
+}
+
+.yearLinks a {
+	color: black;
+	text-decoration: none;
+}
+
+.yearLinks a:hover {
+	text-decoration: underline;
+}
+
+.day {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.customerSidebar {
+}
+
+.customerName {
+	text-align: center;
+	font-size: large;
+	font-weight: bold;
+}
+
+.createdItems {
+	padding-bottom: 1em;
+	border-bottom: 1px dotted black;
+}
+
+.creation {
+	/* display: flex; */
+}
+
+.create {
+	background-color: 006400;
+	color: white;
+	border: 2px solid black;
+	min-width: 100%;
+	height: 2em;
+	font-size: medium;
+}
+
+.creationClick {
+	background-color: gray;
+}
+
+.custom {
+	color: red;
+	display: flex;
+	flex-direction: column;
+}
+
+input {
+	min-width: 100%;
+	height: 2em;
+	font-size: medium;
+}
+
+#custom > button {
+	height: 2em;
+	background-color: #006400;
+	border: 1px solid black;
+	color: white;
+	font-size:medium;
+}
+
+.link {
+	color: black;
+	text-decoration: none;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.hideSidebarButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+	background-color: #eee;
+}
+
+.dayViewFreeze {
+	display: flex;
+	justify-content: end;
+}
+
+.hiddenSidebarButton {
+	background-color: green;
 }

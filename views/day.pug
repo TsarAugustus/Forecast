@@ -4,23 +4,31 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/css/style.css')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Inter')
 	body
-		div.freeze
+		div.freeze.dayViewFreeze
 			a(href='/year/' + previousYear) #{previousYear}
 			h1 #{yearHeader}
 			a(href='/year/' + nextYear) #{nextYear}
-			button#confirm Confirm
+			div#confirm
+				button Confirm
+			div.hideSidebarButton
+					a#hideSidebarText
 		div.dayHeader
-			h1 #{thisDate.date} - #{thisDate.day}
+			h1 #{thisDate.day}
+			h1 #{info.thisMonth} #{info.thisDay}, #{info.thisYear}
+			h3 Go back to 
+				a(href=`/year/${info.thisYear}/month/${info.thisMonth}`).link #{info.thisMonth}
 		div.dayView
-			div.calendarDay 
+			div.calendarDay.dayViewCalendarDay
 				- var id = `${thisDay}-${thisMonth}-${thisYear}`;
 				
-				while i < 5
+				while i < 6
 					div(id=id+'-'+i, class='selector') 
 					- i++
 				- i = 0
-			include includes/sidebar.pug
+			div.dayViewSidebar
+				include includes/sidebar.pug
 			
 		script(type='text/javascript', src='/js/create.js')
 		script(type='text/javascript', src='/js/getSavedData.js')
