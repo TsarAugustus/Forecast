@@ -1,0 +1,48 @@
+- var i = 0
+
+html
+	head
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Inter')
+		link(rel='stylesheet', href='/css/style.css')
+		link(rel='stylesheet', href='/css/unitStyling.css')
+	body
+		div.freeze
+			button.calendarSubmit Submit
+		div.monthView
+			div.calendarDayWrapper
+				<span class='dayHeader'>Mon</span>
+				<span class='dayHeader'>Tue</span>
+				<span class='dayHeader'>Wed</span>
+				<span class='dayHeader'>Thu</span>
+				<span class='dayHeader'>Fri</span>
+				<span class='dayHeader'>Sat</span>
+				<span class='dayHeader'>Sun</span>
+
+				each day in monthDays
+					if day.date === 1
+						div(style=`grid-column-start: ${day.offset}`).calendarDay
+							- var id = `${day.date}-${requestedMonth}-${requestedYear}`;
+							a(href=`${requestedMonth}/day/${day.date}`)
+								p.day #{day.date} 
+							while i < 6
+								div(id=id+'-'+i, class='selector') 
+								- i++
+							- i = 0
+					else
+						div.calendarDay 
+							- var id = `${day.date}-${requestedMonth}-${requestedYear}`;
+							a(href=`${requestedMonth}/day/${day.date}`)
+								p.day #{day.date}
+								//-  - #{day.day}
+							while i < 6
+								div(id=id+'-'+i, class='selector') 
+								- i++
+							- i = 0
+
+			include includes/sidebar.pug
+	script(type='text/javascript', src='/js/create.js')
+	script(type='text/javascript', src='/js/selectorSystem.js')
+	script(type='text/javascript', src='/js/getSchedule.js')
+	script(type='text/javascript', src='/js/clearUnitSchedule.js')
+	script(type='text/javascript', src='/js/deleteUnit.js')
+	script(type='text/javascript', src='/js/editUnit.js')

@@ -1,0 +1,286 @@
+const express = require('express');
+const router = express.Router();
+const Company = require('../models/Company');
+const Unit = require('../models/Unit');
+const CustomUnit = require('../models/CustomUnit');
+const Schedule = require('../models/Schedule');
+const CustomInspection = require('../models/CustomInspection');
+const getRequestedYearUnits = require('../controllers/getRequestedYearUnits');
+const sortMonthUnitsByCompany = require('../controllers/sortMonthUnitsByCustomer');
+
+const months = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December'
+];
+
+router.delete('/:year/:month/:unit/:company', async (req, res) => {
+	// res.sendStatus(200)
+	const thisUnit = req.params.unit.replace(/-/g, '/');
+	const thisCompany = req.params.company;
+
+	await Schedule.findOneAndUpdate(
+		{unit: thisUnit, company: thisCompany},
+		{$set: {schedule: []}}
+	)
+
+})
+
+router.delete('/custom/:year/:month/:unit/:company', async (req, res) => {
+	const thisUnit = req.params.unit.replace(/-/g, '/');
+	const thisCompany = req.params.company;
+	const thisYear = req.params.year;
+	const thisMonth = req.params.month;
+
+	await CustomUnit.findOneAndDelete({unit: thisUnit, company: thisCompany})
+	await Schedule.findOneAndDelete({unit: thisUnit, company: thisCompany});
+
+});
+
+router.put('/edit/:year/:month/:unit/:company/:inspection/:id', async (req, res) => {
+	const thisInspection = req.params.inspection;
+	const thisUnit = req.params.unit.replace(/-/g, '/');
+	const thisCompany = req.params.company;
+	const thisYear = req.params.year;
+	const thisID = req.params.id;
+	let thisMonth = undefined;
+
+	months.forEach((month, monthIndex) => {
+		if(month === req.params.month) thisMonth = monthIndex;
+	})
+
+	const previousCustomInspection = await CustomInspection.findOne({unit: thisUnit, company: thisCompany, year: thisYear, month: thisMonth, unitID: thisID});
+	if(!previousCustomInspection) {
+		await CustomInspection.create({
+			unit: thisUnit,
+			company: thisCompany,
+			year: thisYear,
+			month: thisMonth,
+			inspection: thisInspection,
+			unitID: thisID
+		})
+	} else {
+		await CustomInspection.findOneAndUpdate(
+			{unit: thisUnit, company: req.params.company, unitID: thisID},
+			{ $set: { inspection: thisInspection }}
+		)
+	}
+})
+
+router.get('/req/:year/:month', async (req, res) => {
+	const thisYear = Number(req.params.year);
+	const thisMonth = req.params.month;
+	let thisMonthNumber = undefined;
+
+	months.forEach((month, monthIndex) => {
+		if(month === thisMonth) thisMonthNumber = monthIndex;
+	})
+
+	const existingSchedule = await Schedule.find({});
+	let scheduleToSend = [];
+
+	existingSchedule.forEach(scheduleItem => {
+		scheduleItem.schedule.forEach(thisItem => {
+			// console.log(months[thisItem.month], thisMonth);
+			// console.log(thisItem.year, thisYear);
+			// console.log('SCHED TO SEND', scheduleToSend);
+			// console.log('SCHEDULEITEM', scheduleItem)
+			// console.log('THISITEM', thisItem);
+			if(months[thisItem.month] === thisMonth && thisItem.year === thisYear && !scheduleToSend.find(unit => unit.unit === scheduleItem.unit && unit.company === scheduleItem.company && unit.id === scheduleItem.id)) {
+				scheduleToSend.push(scheduleItem);
+			}
+		})
+	})
+
+	const customInspections = await CustomInspection.find({month: thisMonthNumber, year: thisYear});
+
+	// console.log(customInspections)
+	// console.log(existingSchedule[0])
+	customInspections.forEach(thisInspection => {
+		let thisUnitInSchedule = existingSchedule.find(unit => unit.unit === thisInspection.unit && unit.company === thisInspection.company && unit.unitID === thisInspection.unitID);
+		// console.log(thisUnitInSchedule)
+		// console.log('here', thisUnitInSchedule)
+		console.log('here', thisInspection)
+		if(thisUnitInSchedule) {
+			thisUnitInSchedule.inspection = thisInspection.inspection;
+		}
+	})
+
+	// console.log(scheduleToSend[0])
+
+	return res.json(scheduleToSend)
+});
+
+router.put('/req/:year/:month/:day/:cell/:unit/:company', async (req, res) => {
+	let thisUnit = req.params.unit.replace(/-/g, '/');
+	let thisSchedule = await Schedule.findOne({unit: thisUnit, company: req.params.company});
+
+	let newSchedule = [];
+
+	thisSchedule.schedule.forEach(scheduleItem => {
+		const thisYear = Number(req.params.year);
+		const thisMonth = req.params.month;
+		const thisDay = Number(req.params.day);
+		const thisCell = Number(req.params.cell);
+
+		if(scheduleItem.year === thisYear && months[scheduleItem.month] === thisMonth && scheduleItem.day === thisDay && scheduleItem.cell === thisCell) {
+			// console.log('go', scheduleItem)
+		} else {
+			newSchedule.push(scheduleItem)
+			// console.log('no go', scheduleItem)
+		}
+	})
+
+	await Schedule.findOneAndUpdate(
+		{unit: thisUnit, company: req.params.company},
+		{ $set: { schedule: newSchedule }}
+	)
+}) 
+
+router.get('/:year/:month', async (req, res) => {
+	const requestedYear = Number(req.params.year);
+	const requestedMonth = req.params.month;
+	let requestedMonthNumber: number;
+
+	months.forEach((month, index) => {
+		if(month === requestedMonth) requestedMonthNumber = index;
+	})
+
+	const yearUnits = await getRequestedYearUnits(requestedYear);
+
+	const monthUnits = [];
+	
+	yearUnits.filter(unit => {
+		if(unit.month === requestedMonthNumber) monthUnits.push(unit)
+	});
+
+	const customUnits = await CustomUnit.find({});
+
+	customUnits.forEach(unit => {
+		if(unit.month === requestedMonthNumber && unit.year === requestedYear) {
+			monthUnits.push(unit)
+		}
+	});
+
+	const monthUnitsByCompany = sortMonthUnitsByCompany(monthUnits);
+
+	const monthDays = buildMonth(requestedMonthNumber, requestedYear);
+
+	const customInspections = await CustomInspection.find({});
+
+	customInspections.forEach(newInspection => {
+		let companyInArray = monthUnitsByCompany.find(item => item.name === newInspection.company);
+		if(companyInArray) {
+			let unitInCompanyArray = companyInArray.units.find(item => item.unit === newInspection.unit && item.id === newInspection.unitID);
+			// companyInArray.units.forEach(unit => {
+			// 	console.log(unit.id, newInspection)
+			// })
+			// console.log('NEW', newInspection)
+			// console.log('UNIT', unitInCompanyArray)
+			if(unitInCompanyArray) {
+				unitInCompanyArray.inspection = newInspection.inspection; 
+			}
+		}
+		
+	})
+
+	res.render('month', { monthUnits: monthUnits, monthUnitsByCompany: monthUnitsByCompany, requestedYear: requestedYear, requestedMonth: requestedMonth, monthDays: monthDays})
+});
+
+router.post('/:year/:month', (req, res) => {
+	const year = Number(req.params.year);
+	const month = req.params.month;
+	let requestedMonthNumber: number;
+	
+	months.forEach((thisMonth, index) => {
+		if(thisMonth === month) requestedMonthNumber = index;
+	})
+
+	const unitName = req.body.unitName.replace(/-/g, '/');
+	const companyName = req.body.companyName;
+	const inspection = req.body.inspection;
+	const specification = req.body.specification
+
+	const existingCustomUnit = CustomUnit.find({name: unitName, company: companyName, inspection: inspection, year: year, month: requestedMonthNumber, specification: specification});
+
+	if(existingCustomUnit) {
+
+		CustomUnit.create({
+			unit: unitName,
+			company: companyName,
+			inspection: inspection,
+			year: year,
+			month: requestedMonthNumber,
+			spec: specification
+		})
+
+	} else {
+		console.log('Existing Custom Unit not found')
+	}
+
+	res.redirect(`/year/${year}/${month}`)
+})
+
+function buildMonth(month, year) {
+	let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	let monthToReturn = [];
+
+	let monthDays = new Date(year, month+1, 0).getDate();
+
+	for(let i=0; i<monthDays; i++) {
+		let newDay = {
+			date: i + 1,
+			day: days[new Date(year, month, i+1, 12).getDay()],
+			offset: undefined
+		};
+
+		if(newDay.day === 'Sunday') {
+			newDay.offset = 7;
+		} else {
+			newDay.offset = new Date(year, month, i+1, 12).getDay();
+		}
+
+		monthToReturn.push(newDay);
+	}
+
+	return monthToReturn;
+}
+
+function sortCompanies( a, b ) {
+	if (a.company< b.company){
+		return -1;
+	}
+	if (a.company> b.company){
+		return 1;
+	}
+	return 0;
+}
+
+function removeDuplicateUnits(arr) {
+	let newArray = [];
+ 
+    let uniqueObject = {};
+
+    for (let i in arr) {
+        let objName = arr[i]['name'];
+ 
+        uniqueObject[objName] = arr[i];
+    }
+ 
+    for (let i in uniqueObject) {
+        newArray.push(uniqueObject[i]);
+    }
+
+    return newArray;
+}
+
+module.exports = router;

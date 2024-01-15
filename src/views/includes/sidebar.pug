@@ -1,0 +1,23 @@
+div.sidebar
+	div.createUnitDiv
+		button.createButton Add Item to Calendar
+		div.unitCreationDiv.hide
+			form(action=`/year/${requestedYear}/${requestedMonth}`, method='POST')
+				input(type="text", placeholder='Company', name='companyName')
+				input(type="text", placeholder='Unit Name', name='unitName')
+				input(type="text", placeholder='Inspection', name='inspection')
+				input(type="text", placeholder='Specification', name='specification')
+				button Submit
+	each company in monthUnitsByCompany
+		div.sidebar-CompanyDiv
+			div.sidebar-CompanyHeader
+				span #{company.name}
+			each unit in company.units
+				div(data-unit=unit.unit, data-customer=company.name, data-inspection=unit.inspection, data-id=unit.id class=company.name.replace(/\s+/g, '-')).sidebar-UnitHeader
+					span #{unit.unit.replace(/-/g, '/')}
+					span #{unit.inspection}
+					span #{unit.spec}
+					button(data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).clearAllButton Clear
+					if unit._id
+						button(data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).deleteUnitButton Delete
+					button(data-unit=unit.unit, data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).editUnitButton Edit

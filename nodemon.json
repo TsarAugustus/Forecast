@@ -1,0 +1,9 @@
+{
+	"watch": ["./src"],
+	"ext": "pug, ts, css",
+
+	"events": 
+	{
+	  "restart": "\"npm run copy\""
+	}
+}

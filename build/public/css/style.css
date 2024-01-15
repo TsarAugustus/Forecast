@@ -1,0 +1,155 @@
+/* * {
+	font-family: 'Helvetica';
+} */
+
+* {
+	font-family: 'Inter' !important;
+}
+
+body {
+	background-color: #e0e0e0;
+}
+
+.dayHeader {
+	text-align: center;
+	margin-top: 5em;
+}
+
+.calendarDayWrapper {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	flex-grow: 1;
+}
+
+.calendarDay {
+	border: 0.1em solid black;
+	padding: 0.5em;
+	box-shadow:
+    1px 1px 2px 0px #00000060,
+    3px 3px 6px 0 #7E856Eb0,
+    5px 5px 12px 0 #7E856E70,
+    7px 7px 30px #7E856E30;
+	margin: 0.5em;
+	/* margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-left: 0.25em;
+	margin-right: 0.25em; */
+}
+
+.calendarDay a {
+	color: black;
+	text-decoration: none;
+}
+
+.calendarDay a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.selector {
+	height: 3em;
+	border: 1px solid gray;
+	width: 100%;
+	/* display: grid; */
+	/* grid-template-columns: 1fr 1fr 1fr; */
+	border-radius: 0.5em;
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+.selector > p {
+	font-size: 1.5vmin;
+	text-align: center;
+}
+
+.scheduledItem {
+	display: flex;
+	/* flex-direction: column; */
+	/* white-space: nowrap; */
+
+	font-size: 1.8vmin;
+	text-align: center;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.scheduledItem > span {
+	width: 50%;
+	font-weight: bold;
+}
+
+.clearButton {
+	position: absolute;
+	right: 0;
+	height: 0.75em;
+	width: 0.75em;
+	background-color: red;
+}
+
+.monthView {
+	display: flex;
+	flex-direction: row;
+}
+
+.hide {
+	display: none;
+}
+
+/* START OF SIDEBAR */
+
+.sidebar {
+	border: 1px solid black;
+	min-width: 20%;
+	max-width: 20%;
+}
+
+.sidebar-CompanyDiv {
+	/* border: 1px solid blue; */
+	text-align: center;
+}
+
+.sidebar-CompanyHeader {
+	/* background-color: gray; */
+
+	margin-top: 1em;
+}
+
+.sidebar-UnitHeader {
+	background-color: white;
+	border: 1px solid black;
+	position: relative;
+	height: 1.5em;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.sidebar-UnitHeader > span {
+	width: 25%;
+}
+
+.createUnitDiv {
+
+}
+
+.createButton {
+	
+}
+
+.unitCreationDiv > input {
+	min-width: 100%;
+}
+
+.highlight {
+	background-color: green !important;
+}
+
+.clearAllButton {
+	/* position: absolute;
+	right: 0 */
+	width: 20%;
+}
+
+/* END OF SIDEBAR */
