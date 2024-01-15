@@ -47,6 +47,34 @@
 	color: white;
 }
 
+.Desert-Cardlock {
+	background-color: silver;
+}
+
+.Alchemist {
+	background-color: #941C2F;
+	color: white;
+}
+
+.Flying-J {
+	background-color: #b02b37;
+	color: #e9be40;
+}
+
+.Pinnacle {
+	background-color: white;
+	color: #be3635;
+}
+
+.Wilderness {
+	background-color: #edcb3b;
+	color: #550808;
+}
+
+.Source-It {
+	background-color: black;
+	color: white;
+}
 
 /* */
 
@@ -96,7 +124,7 @@ hot pink */
 /* .CUSTOMER-NORTH-ARM {
 	/* background-color: #ca0791; */
 	/* color: #080046; */
-/* } */ */
+/* } */ 
 
 
 /* - Alchemist Specialty Carriers

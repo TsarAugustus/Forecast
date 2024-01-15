@@ -1,6 +1,25 @@
 function selectorSystem() {
 	let selectedUnit;
 	let selectedDays = [];
+	let toggleBool = false;
+
+	let editCheckbox = document.querySelectorAll('.editCheckbox');
+
+	editCheckbox.forEach(checkbox => {
+		checkbox.addEventListener('click', () => {
+			let sidebar = document.querySelectorAll('.sidebar');
+			toggleBool = !toggleBool;
+			console.log(sidebar)
+			sidebar.forEach(thisSidebar => {
+				console.log('here')
+				if(toggleBool === true) {
+					thisSidebar['style'].display = 'none'
+				} else {
+					thisSidebar['style'].display = 'block'
+				}
+			})
+		})
+	})
 
 	//Unit selection
 	let unitHeaders = document.querySelectorAll('.sidebar-UnitHeader');

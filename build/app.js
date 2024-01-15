@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = 8080;
+const port = 3000;
 const mongoose_1 = __importDefault(require("mongoose"));
 mongoose_1.default.connect('mongodb://127.0.0.1:27017/Forecast');
 //May not be required?
