@@ -90,11 +90,13 @@ router.get('/req/:year/:month', async (req, res) => {
     const missedUnits = await MissedUnits.find({});
     missedUnits.forEach(missedUnit => {
         let thisUnitInSchedule = scheduleToSend.find(unit => unit.unit === missedUnit.unit && unit.company === missedUnit.company && unit.unitID === missedUnit.unitID);
-        thisUnitInSchedule.schedule.forEach(schedule => {
-            if (schedule.day === missedUnit.day && schedule.month === missedUnit.month && schedule.year === missedUnit.year && schedule.unitID === missedUnit.unitID) {
-                schedule['missed'] = true;
-            }
-        });
+        if (thisUnitInSchedule) {
+            thisUnitInSchedule.schedule.forEach(schedule => {
+                if (schedule.day === missedUnit.day && schedule.month === missedUnit.month && schedule.year === missedUnit.year && schedule.unitID === missedUnit.unitID) {
+                    schedule['missed'] = true;
+                }
+            });
+        }
     });
     return res.json(scheduleToSend);
 });

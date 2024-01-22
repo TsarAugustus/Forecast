@@ -8,14 +8,15 @@ const app = express();
 const path = require('path');
 const port = 8080;
 const mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.connect('mongodb://127.0.0.1:27017/Forecast');
 //May not be required?
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 const Company = require('./models/Company');
 const init = require('./controllers/init');
-(function () {
+const URI = 'mongodb://127.0.0.1:27017/Forecast';
+(async function () {
+    await mongoose_1.default.connect(URI);
     init();
 })();
 app.use(express.json());
