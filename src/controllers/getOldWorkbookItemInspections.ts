@@ -17,7 +17,7 @@ function getOldWorkbookItemInspections(item) {
 	}
 
 	if(item.UNIT !== 'UNIT' && (typeof unitMonth !== 'number' || typeof unitYear !== 'number')) {
-		console.log(unitMonth, unitYear, item)
+		console.error(unitMonth, unitYear, item)
 		throw new Error('MONTH OR YEAR IS NOT A NUMBER');
 	}
 
@@ -42,7 +42,6 @@ function getOldWorkbookItemInspections(item) {
 			if(spec === 'HOSES' || spec === 'Hose' || spec === 'TANK SPEC') continue
 
 			if(spec.includes('306') || spec.includes('406')) {
-				// console.log(previousData)
 				thisInspection[inspectionLetter].year = unitYear + inspectionLimits['406'][inspectionLetter];
 				thisInspection[inspectionLetter].interval = inspectionLimits['406'][inspectionLetter];
 				thisInspection[inspectionLetter].month = unitMonth;
@@ -55,7 +54,7 @@ function getOldWorkbookItemInspections(item) {
 				thisInspection[inspectionLetter].interval = inspectionLimits['331'][inspectionLetter];
 				thisInspection[inspectionLetter].month = unitMonth;
 			} else {
-				// console.log('UNKNOWN SPEC', spec)
+				// console.error('UNKNOWN SPEC', spec)
 			}
 
 		}

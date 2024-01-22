@@ -5,14 +5,31 @@ function selectorSystem() {
 
 	let editCheckbox = document.querySelectorAll('.editCheckbox');
 
+	let initSidebar = document.querySelectorAll('.sidebar');
+	// initSidebar.forEach(thisSidebar => {
+	// 	thisSidebar['style'].display = 'none'
+	// });
+
 	editCheckbox.forEach(checkbox => {
 		checkbox.addEventListener('click', () => {
 			let sidebar = document.querySelectorAll('.sidebar');
 			toggleBool = !toggleBool;
-			console.log(sidebar)
 			sidebar.forEach(thisSidebar => {
-				console.log('here')
-				if(toggleBool === true) {
+				if(toggleBool === false) {
+					thisSidebar['style'].display = 'none'
+				} else {
+					thisSidebar['style'].display = 'block'
+				}
+			})
+		})
+	})
+
+	editCheckbox.forEach(checkbox => {
+		checkbox.addEventListener('click', () => {
+			let sidebar = document.querySelectorAll('.sidebar');
+			toggleBool = !toggleBool;
+			sidebar.forEach(thisSidebar => {
+				if(toggleBool === false) {
 					thisSidebar['style'].display = 'none'
 				} else {
 					thisSidebar['style'].display = 'block'
@@ -128,15 +145,13 @@ function selectorSystem() {
 					unitID: unitID
 				})
 			})
-			// console.log(selectedUnit)
+
 			const thisUnit = {
 				name: selectedUnit.dataset.unit,
 				company: selectedUnit.dataset.customer,
 				inspection: selectedUnit.dataset.inspection,
 				unitID: unitID
 			}
-
-			// console.log(thisUnit)
 
 			const body = JSON.stringify({
 				unit: thisUnit,

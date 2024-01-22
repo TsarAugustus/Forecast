@@ -6,9 +6,12 @@ html
 		link(rel='stylesheet', href='/css/style.css')
 		link(rel='stylesheet', href='/css/unitStyling.css')
 	body
-		div.freeze
+		div.freeze.navigation
 			button.calendarSubmit Submit
 			input(type='checkbox').editCheckbox
+			div.monthNavigation
+				each month of HTMLMonths
+						a(href=`/year/${requestedYear}/` + month) #{month}
 		div.monthView
 			div.calendarDayWrapper
 				<span class='dayHeader'>Mon</span>
@@ -24,7 +27,7 @@ html
 						div(style=`grid-column-start: ${day.offset}`).calendarDay
 							- var id = `${day.date}-${requestedMonth}-${requestedYear}`;
 							a(href=`${requestedMonth}/day/${day.date}`)
-								p.day #{day.date} 
+								p.day #{day.date}
 							while i < 6
 								div(id=id+'-'+i, class='selector') 
 								- i++

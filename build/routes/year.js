@@ -6,6 +6,7 @@ const Unit = require('../models/Unit');
 const CustomUnit = require('../models/CustomUnit');
 const Schedule = require('../models/Schedule');
 const CustomInspection = require('../models/CustomInspection');
+const MissedUnits = require('../models/MissedUnits');
 const getRequestedYearUnits = require('../controllers/getRequestedYearUnits');
 const sortMonthUnitsByCompany = require('../controllers/sortMonthUnitsByCustomer');
 const months = [
@@ -70,33 +71,31 @@ router.get('/req/:year/:month', async (req, res) => {
         if (month === thisMonth)
             thisMonthNumber = monthIndex;
     });
-    const existingSchedule = await Schedule.find({});
+    let existingSchedule = await Schedule.find({}).lean();
     let scheduleToSend = [];
     existingSchedule.forEach(scheduleItem => {
         scheduleItem.schedule.forEach(thisItem => {
-            // console.log(months[thisItem.month], thisMonth);
-            // console.log(thisItem.year, thisYear);
-            // console.log('SCHED TO SEND', scheduleToSend);
-            // console.log('SCHEDULEITEM', scheduleItem)
-            // console.log('THISITEM', thisItem);
             if (months[thisItem.month] === thisMonth && thisItem.year === thisYear && !scheduleToSend.find(unit => unit.unit === scheduleItem.unit && unit.company === scheduleItem.company && unit.id === scheduleItem.id)) {
                 scheduleToSend.push(scheduleItem);
             }
         });
     });
     const customInspections = await CustomInspection.find({ month: thisMonthNumber, year: thisYear });
-    // console.log(customInspections)
-    // console.log(existingSchedule[0])
     customInspections.forEach(thisInspection => {
         let thisUnitInSchedule = existingSchedule.find(unit => unit.unit === thisInspection.unit && unit.company === thisInspection.company && unit.unitID === thisInspection.unitID);
-        // console.log(thisUnitInSchedule)
-        // console.log('here', thisUnitInSchedule)
-        console.log('here', thisInspection);
         if (thisUnitInSchedule) {
             thisUnitInSchedule.inspection = thisInspection.inspection;
         }
     });
-    // console.log(scheduleToSend[0])
+    const missedUnits = await MissedUnits.find({});
+    missedUnits.forEach(missedUnit => {
+        let thisUnitInSchedule = scheduleToSend.find(unit => unit.unit === missedUnit.unit && unit.company === missedUnit.company && unit.unitID === missedUnit.unitID);
+        thisUnitInSchedule.schedule.forEach(schedule => {
+            if (schedule.day === missedUnit.day && schedule.month === missedUnit.month && schedule.year === missedUnit.year && schedule.unitID === missedUnit.unitID) {
+                schedule['missed'] = true;
+            }
+        });
+    });
     return res.json(scheduleToSend);
 });
 router.put('/req/:year/:month/:day/:cell/:unit/:company', async (req, res) => {
@@ -117,6 +116,50 @@ router.put('/req/:year/:month/:day/:cell/:unit/:company', async (req, res) => {
         }
     });
     await Schedule.findOneAndUpdate({ unit: thisUnit, company: req.params.company }, { $set: { schedule: newSchedule } });
+});
+router.put('/missed/:year/:month/:day/:cell/:unit/:company/:unitID', async (req, res) => {
+    const unitYear = Number(req.params.year);
+    let unitMonth;
+    months.find((month, monthIndex) => {
+        if (month === req.params.month)
+            unitMonth = monthIndex;
+    });
+    const unitDay = Number(req.params.day);
+    const unitCell = Number(req.params.cell);
+    const thisUnit = req.params.unit;
+    const unitCompany = req.params.company;
+    const unitID = req.params.unitID;
+    let thisMissedUnit = await MissedUnits.findOne({
+        year: unitYear,
+        month: unitMonth,
+        day: unitDay,
+        cell: unitCell,
+        unit: thisUnit,
+        company: unitCompany,
+        unitID: unitID
+    });
+    if (!thisMissedUnit) {
+        MissedUnits.create({
+            year: unitYear,
+            month: unitMonth,
+            day: unitDay,
+            cell: unitCell,
+            unit: thisUnit,
+            company: unitCompany,
+            unitID: unitID
+        });
+    }
+    else {
+        await MissedUnits.findOneAndDelete({
+            year: unitYear,
+            month: unitMonth,
+            day: unitDay,
+            cell: unitCell,
+            unit: thisUnit,
+            company: unitCompany,
+            unitID: unitID
+        });
+    }
 });
 router.get('/:year/:month', async (req, res) => {
     const requestedYear = Number(req.params.year);
@@ -145,17 +188,13 @@ router.get('/:year/:month', async (req, res) => {
         let companyInArray = monthUnitsByCompany.find(item => item.name === newInspection.company);
         if (companyInArray) {
             let unitInCompanyArray = companyInArray.units.find(item => item.unit === newInspection.unit && item.id === newInspection.unitID);
-            // companyInArray.units.forEach(unit => {
-            // 	console.log(unit.id, newInspection)
-            // })
-            // console.log('NEW', newInspection)
-            // console.log('UNIT', unitInCompanyArray)
             if (unitInCompanyArray) {
                 unitInCompanyArray.inspection = newInspection.inspection;
             }
         }
     });
-    res.render('month', { monthUnits: monthUnits, monthUnitsByCompany: monthUnitsByCompany, requestedYear: requestedYear, requestedMonth: requestedMonth, monthDays: monthDays });
+    const HTMLMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    res.render('month', { monthUnits: monthUnits, monthUnitsByCompany: monthUnitsByCompany, requestedYear: requestedYear, requestedMonth: requestedMonth, monthDays: monthDays, HTMLMonths: HTMLMonths });
 });
 router.post('/:year/:month', (req, res) => {
     const year = Number(req.params.year);
@@ -181,7 +220,7 @@ router.post('/:year/:month', (req, res) => {
         });
     }
     else {
-        console.log('Existing Custom Unit not found');
+        console.error('Existing Custom Unit not found');
     }
     res.redirect(`/year/${year}/${month}`);
 });

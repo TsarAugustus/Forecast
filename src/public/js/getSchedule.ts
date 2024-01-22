@@ -24,7 +24,6 @@ async function getSchedule() {
 
 	thisSchedule.forEach(scheduleItem => {
 		scheduleItem.schedule.forEach(thisItem => {
-			// console.log(thisItem)
 			let thisItemElement = document.getElementById(`${thisItem.day}-${months[thisItem.month]}-${thisItem.year}-${thisItem.cell}`);
 
 			thisItemElement.classList.add(scheduleItem.company.replace(/\s+/g, '-'))
@@ -51,12 +50,30 @@ async function getSchedule() {
 			clearDay.classList.add('clearButton');
 			// clearDay.innerHTML = 'X';
 			clearDay.addEventListener('click', () => {
-				fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}`, {method: 'PUT'})
+				if(confirm('Are you sure you want to remove this unit from the schedule?')) {
+					fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}`, {method: 'PUT'})
+				} else {
+					console.log('no confirm')
+				}
 
 				location.reload();
 			})
 
-			thisItemElement.appendChild(clearDay)
+			let missedUnit = document.createElement('button');
+			missedUnit.classList.add('missedButton');
+			missedUnit.addEventListener('click', () => {
+				const unitID = thisItem.unitID;
+				fetch(`/year/missed/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}/${unitID}`, {method: 'PUT'})
+
+				location.reload();
+			});
+
+			if(thisItem.missed) {
+				thisItemElement.classList.add('missedUnit')
+			}
+
+			thisItemElement.appendChild(clearDay);
+			thisItemElement.appendChild(missedUnit)
 		})
 	})
 

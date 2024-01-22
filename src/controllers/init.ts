@@ -37,7 +37,7 @@ function init() {
 					})
 				} 
 				catch (error) {
-					// console.log(error)
+					console.error(error)
 				}
 				
 			} 
@@ -66,7 +66,7 @@ function getUnitSpec(item) {
 			specToReturn = "331"
 		} else {
 			specToReturn = spec;
-			// console.log('UNKNOWN SPEC', spec)
+			// console.error('UNKNOWN SPEC', spec)
 		}
 	}
 

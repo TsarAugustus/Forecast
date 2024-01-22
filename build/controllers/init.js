@@ -29,7 +29,7 @@ function init() {
                     });
                 }
                 catch (error) {
-                    // console.log(error)
+                    console.error(error);
                 }
             }
             const inspectionData = getInspectionData(workbookInspection);
@@ -52,7 +52,7 @@ function getUnitSpec(item) {
         }
         else {
             specToReturn = spec;
-            // console.log('UNKNOWN SPEC', spec)
+            // console.error('UNKNOWN SPEC', spec)
         }
     }
     return specToReturn;

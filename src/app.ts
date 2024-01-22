@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = 3000;
+const port = 8080;
 
 import mongoose from 'mongoose';
 mongoose.connect('mongodb://127.0.0.1:27017/Forecast');
@@ -35,7 +35,10 @@ const api = require('./routes/api');
 app.use('/api', api);
 
 const confirm = require('./routes/confirm');
-app.use('/confirm', confirm)
+app.use('/confirm', confirm);
+
+const matrix = require('./routes/matrix');
+app.use('/matrix', matrix);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);

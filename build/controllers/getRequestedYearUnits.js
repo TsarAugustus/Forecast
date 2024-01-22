@@ -45,7 +45,6 @@ function removeDuplicateUnits(arr) {
     let newArray = [];
     let uniqueObject = {};
     for (let i in arr) {
-        // console.log(arr[i]['unit'])
         let objName = arr[i]['unit'];
         uniqueObject[objName] = arr[i];
     }

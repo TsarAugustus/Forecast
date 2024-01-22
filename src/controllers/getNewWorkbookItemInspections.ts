@@ -45,10 +45,10 @@ function getNewWorkbookItemInspections(item) {
 			thisInspection[inspectionLetter].month = unitMonth;
 		}
 		else {
-			// console.log('UNKNOWN SPEC', spec)
+			// console.error('UNKNOWN SPEC', spec)
 		}
 	}
-	// console.log(thisInspection)
+
 	return thisInspection;
 }
 

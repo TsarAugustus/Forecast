@@ -15,7 +15,8 @@ const ScheduleSchema = new Schema({
             month: Number,
             year: Number,
             cell: Number,
-            unitID: String
+            unitID: String,
+            missed: Boolean
         }]
 });
 const CustomSchedule = model('CustomSchedule', ScheduleSchema);

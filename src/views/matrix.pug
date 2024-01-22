@@ -1,0 +1,85 @@
+html
+	head
+		link(rel='stylesheet', href='/css/style.css')
+	body
+		h1 MATRIX
+		div.certifications
+			each employee in cert
+				div.employeeCertification
+					h1.employee= employee.name
+						table
+							thead
+								tr
+									th Tank Type
+									th V - Visual
+									th I - Internal
+									th K - Leakage
+									th P - Pressure
+									th T - Thickness
+									th L - Lining
+									th UC - Upper Coupler
+									th WF - Wet Fluorescent
+							tbody
+								tr
+									td 406 Tank
+									td= employee['406']['V']
+									td= employee['406']['I']
+									td= employee['406']['K']
+									td= employee['406']['P']
+									td= employee['406']['T']
+									td= employee['406']['L']
+									td= employee['406']['UC']
+									td= employee['406']['WF']
+								tr
+									td 407 Tank
+									td= employee['407']['V']
+									td= employee['407']['I']
+									td= employee['407']['K']
+									td= employee['407']['P']
+									td= employee['407']['T']
+									td= employee['407']['L']
+									td= employee['407']['UC']
+									td= employee['407']['WF']
+								tr
+									td 331 Tank
+									td= employee['331']['V']
+									td= employee['331']['I']
+									td= employee['331']['K']
+									td= employee['331']['P']
+									td= employee['331']['T']
+									td= employee['331']['L']
+									td= employee['331']['UC']
+									td= employee['331']['WF']
+		//- div.certifications
+		//- 	each employee in cert
+		//- 		span #{employee.name}
+		//- 		span Specification 406: #{employee['406'].number}
+		//- 		div
+		//- 			span V #{employee['406'].V}
+		//- 			span I #{employee['406'].I}
+		//- 			span K #{employee['406'].K}
+		//- 			span P #{employee['406'].P}
+		//- 			span T #{employee['406'].T}
+		//- 			span L #{employee['406'].L}
+		//- 			span UC #{employee['406'].UC}
+		//- 			span WF #{employee['406'].WF}
+		//- 		span Specification 407: #{employee['407'].number}
+		//- 		div
+		//- 			span V #{employee['407'].V}
+		//- 			span I #{employee['407'].I}
+		//- 			span K #{employee['407'].K}
+		//- 			span P #{employee['407'].P}
+		//- 			span T #{employee['407'].T}
+		//- 			span L #{employee['407'].L}
+		//- 			span UC #{employee['407'].UC}
+		//- 			span WF #{employee['407'].WF}
+		//- 		span Specification 331: #{employee['331'].number}
+		//- 		div
+		//- 			span V #{employee['331'].V}
+		//- 			span I #{employee['331'].I}
+		//- 			span K #{employee['331'].K}
+		//- 			span P #{employee['331'].P}
+		//- 			span T #{employee['331'].T}
+		//- 			span L #{employee['331'].L}
+		//- 			span UC #{employee['331'].UC}
+		//- 			span WF #{employee['331'].WF}

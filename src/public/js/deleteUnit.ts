@@ -8,8 +8,6 @@ function delteUnit() {
 			const thisUnit = button['dataset'].unit;
 			const thisCompany = button['dataset'].customer;
 
-			console.log(thisUnit)
-
 			fetch(`/year/custom/${thisYear}/${thisMonth}/${thisUnit}/${thisCompany}`, {method: 'DELETE'})
 			location.reload()
 		})
