@@ -6,8 +6,21 @@ const sanitizeCompanyName = require('./sanitizeCompanyName');
 const sanitizeUnitName = require('./sanitizeUnitName');
 const inspectionList = require('./inspectionList');
 const retrieveInformation = require('./retrieveInformation');
+const retrieveMVIInformation = require('./retrieveMVIInformation');
 const getNewWorkbookItemInspections = require('./getNewWorkbookItemInspections');
 const getOldWorkbookItemInspections = require('./getOldWorkbookItemInspections');
+const ExcelDateToJSDate = require('./ExcelDateToJsDate');
+function sanitizeMVIUnit(name) {
+    if (name !== undefined) {
+        if (name[name.length - 1] === 'L' ||
+            name[name.length - 1] === 'R' ||
+            name[name.length - 1] === 'A' ||
+            name[name.length - 1] === 'B') {
+            name = name.slice(0, -1);
+        }
+    }
+    return name;
+}
 function init() {
     const workbookInformation = retrieveInformation();
     //Create Unit in Database
@@ -35,6 +48,47 @@ function init() {
             const inspectionData = getInspectionData(workbookInspection);
             await Unit.findOneAndUpdate({ name: unitName, company: companyName }, { $set: { inspections: inspectionData } });
         });
+    });
+    const MVIWorkbookInformation = retrieveMVIInformation();
+    MVIWorkbookInformation.forEach(async (inspection) => {
+        const MVIOwner = sanitizeCompanyName(inspection.Owner);
+        const MVIUnit = sanitizeMVIUnit(inspection['Unit #']);
+        const MVIDate = ExcelDateToJSDate(inspection['Inspection Date']);
+        const MVIUniqueName = `${MVIOwner}-${MVIUnit}`;
+        if (MVIDate instanceof Date && isNaN(MVIDate)) {
+            //Invalid MVI
+            // console.error('NO VALID DATE', inspection)
+        }
+        else {
+            //Valid MVI
+            const unitInDB = await Unit.find({});
+            const filteredDB = unitInDB.find(unit => {
+                if (unit.company === MVIOwner && unit.name.includes(MVIUnit))
+                    return unit;
+            });
+            if (filteredDB) {
+                let unitInspections = filteredDB.inspections;
+                if (!unitInspections.MVI) {
+                    // console.log(unitInspections)
+                    unitInspections.MVI = {
+                        month: MVIDate.getMonth(),
+                        year: MVIDate.getFullYear(),
+                        interval: 1
+                    };
+                }
+                else if (unitInspections.MVI && unitInspections.MVI.year < MVIDate.getFullYear()) {
+                    unitInspections.MVI = {
+                        month: MVIDate.getMonth(),
+                        year: MVIDate.getFullYear(),
+                        interval: 1
+                    };
+                }
+                if (unitInspections.MVI)
+                    unitInspections.MVI.year = 2024;
+                await Unit.findOneAndUpdate({ uniqueName: filteredDB.uniqueName }, { $set: { inspections: unitInspections } });
+                // console.log(await Unit.findOne({uniqueName: filteredDB.uniqueName}))
+            }
+        }
     });
 }
 function getUnitSpec(item) {

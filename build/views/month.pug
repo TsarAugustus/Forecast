@@ -7,8 +7,9 @@ html
 		link(rel='stylesheet', href='/css/unitStyling.css')
 	body
 		div.freeze.navigation
-			button.calendarSubmit Submit
-			input(type='checkbox').editCheckbox
+			div.navigationButtons
+				button.calendarSubmit Submit
+				button.hideSidebar Show Sidebar
 			div.monthNavigation
 				each month of HTMLMonths
 						a(href=`/year/${requestedYear}/` + month) #{month}
@@ -33,7 +34,7 @@ html
 								- i++
 							- i = 0
 					else
-						div.calendarDay 
+						div(id=`${day.date}-${requestedMonth}-${requestedYear}`).calendarDay 
 							- var id = `${day.date}-${requestedMonth}-${requestedYear}`;
 							a(href=`${requestedMonth}/day/${day.date}`)
 								p.day #{day.date}
@@ -50,3 +51,5 @@ html
 	script(type='text/javascript', src='/js/clearUnitSchedule.js')
 	script(type='text/javascript', src='/js/deleteUnit.js')
 	script(type='text/javascript', src='/js/editUnit.js')
+	script(type='text/javascript', src='/js/months.js')
+	script(type='text/javascript', src='/js/init.js')

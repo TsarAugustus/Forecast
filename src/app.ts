@@ -11,13 +11,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json())
 
-const Company = require('./models/Company')
+const Company = require('./models/Company') //depreciated?
+
+require('dotenv').config();
 
 const init = require('./controllers/init');
-const URI = 'mongodb://127.0.0.1:27017/Forecast';
+
+const URI = process.env.DEVELOPMENT_URI;
 
 (async function () {
-	await mongoose.connect(URI);
+	await mongoose.connect(URI).then(() => console.log('MongoDB Connection')).catch((error) => console.error(error));
 	init();	
 })();
 
@@ -40,6 +43,12 @@ app.use('/confirm', confirm);
 
 const matrix = require('./routes/matrix');
 app.use('/matrix', matrix);
+
+const index = require('./routes/index');
+app.use('/', index);
+
+const file = require('./routes/file');
+app.use('/file', file);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);

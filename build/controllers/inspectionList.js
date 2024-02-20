@@ -39,6 +39,11 @@ const inspectionList = {
         month: null,
         year: null,
         interval: null
+    },
+    'MVI': {
+        month: null,
+        year: null,
+        interval: null
     }
 };
 module.exports = inspectionList;

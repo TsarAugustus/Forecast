@@ -1,0 +1,22 @@
+- const months = ['January', 'February' ,'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+- let thisDate = new Date()
+html
+	head
+	body
+		div
+			span
+				a(href=`/year/${thisDate.getFullYear()}/${months[thisDate.getMonth()]}`) View the current schedule
+		div
+			form(id='B620File', method='POST', enctype='multipart/form-data', action='/file/B620')
+				div
+					label(for="B620File") Upload B620 Excel Sheet
+					input(type='file' id='B620File' name='B620File')
+				div
+					button(type='submit') Submit 
+		div
+			form(id='MVIFile', method='POST', enctype='multipart/form-data', action='/file/MVI')
+				div
+					label(for="MVIFile") Upload MVI Excel Sheet
+					input(type='file' id='MVIFile' name='MVIFile')
+				div
+					button(type='submit') Submit 

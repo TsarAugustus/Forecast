@@ -9,7 +9,8 @@ let inspectionLimits = {
 		'T': 5,
 		'L': 5,
 		'UC': 5,
-		'WF' : undefined
+		'WF' : undefined,
+		'MVI': 1
 	},
 	407: {
 		'V': 1,
@@ -19,7 +20,8 @@ let inspectionLimits = {
 		'T': 5,
 		'L': 5,
 		'UC': 5,
-		'WF' : undefined
+		'WF' : undefined,
+		'MVI': 1
 	},
 	331: {
 		'V': 1,
@@ -29,7 +31,8 @@ let inspectionLimits = {
 		'T': 2,
 		'L': 5,
 		'UC': 5,
-		'WF' : 5
+		'WF' : 5,
+		'MVI': 1
 	},
 	412: {
 		//NEED INFO

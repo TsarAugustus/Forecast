@@ -1,18 +1,4 @@
 async function getSchedule() {
-	const months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	];
 
 	const thisSplit = window.location.href.split('/');
 	const thisYear = thisSplit[4];
@@ -26,54 +12,57 @@ async function getSchedule() {
 		scheduleItem.schedule.forEach(thisItem => {
 			let thisItemElement = document.getElementById(`${thisItem.day}-${months[thisItem.month]}-${thisItem.year}-${thisItem.cell}`);
 
-			thisItemElement.classList.add(scheduleItem.company.replace(/\s+/g, '-'))
+			if(thisItemElement) {
+				thisItemElement.classList.add(scheduleItem.company.replace(/\s+/g, '-'))
 
-			// thisItemElement.innerHTML = `${scheduleItem.company}-${scheduleItem.unit}`;
-			let selectorInformation = document.createElement('div');
-			selectorInformation.classList.add('scheduledItem')
+				// thisItemElement.innerHTML = `${scheduleItem.company}-${scheduleItem.unit}`;
+				let selectorInformation = document.createElement('div');
+				selectorInformation.classList.add('scheduledItem')
 
-			let unitInformation = document.createElement('span');
-			unitInformation.innerHTML = `${scheduleItem.unit}`;
-			selectorInformation.appendChild(unitInformation);
+				let unitInformation = document.createElement('span');
+				unitInformation.innerHTML = `${scheduleItem.unit}`;
+				selectorInformation.appendChild(unitInformation);
 
-			let customerInformation = document.createElement('span');
-			customerInformation.innerHTML = `${scheduleItem.company}`;
-			selectorInformation.appendChild(customerInformation);
+				let customerInformation = document.createElement('span');
+				customerInformation.innerHTML = `${scheduleItem.company}`;
+				selectorInformation.appendChild(customerInformation);
 
-			let inspectionInformation = document.createElement('span');
-			inspectionInformation.innerHTML = `${scheduleItem.inspection}`;
-			selectorInformation.appendChild(inspectionInformation);
-			
-			thisItemElement.appendChild(selectorInformation)
+				let inspectionInformation = document.createElement('span');
+				inspectionInformation.innerHTML = `${scheduleItem.inspection}`;
+				selectorInformation.appendChild(inspectionInformation);
+				
+				thisItemElement.appendChild(selectorInformation)
 
-			let clearDay = document.createElement('button');
-			clearDay.classList.add('clearButton');
-			// clearDay.innerHTML = 'X';
-			clearDay.addEventListener('click', () => {
-				if(confirm('Are you sure you want to remove this unit from the schedule?')) {
-					fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}`, {method: 'PUT'})
-				} else {
-					console.log('no confirm')
-				}
+				let clearDay = document.createElement('button');
+				clearDay.classList.add('clearButton');
+				// clearDay.innerHTML = 'X';
+				clearDay.addEventListener('click', () => {
+					if(confirm('Are you sure you want to remove this unit from the schedule?')) {
+						fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}`, {method: 'PUT'})
+					} else {
+						console.log('no confirm')
+					}
 
-				location.reload();
-			})
+					location.reload();
+				})
 
-			let missedUnit = document.createElement('button');
-			missedUnit.classList.add('missedButton');
-			missedUnit.addEventListener('click', () => {
-				const unitID = thisItem.unitID;
-				fetch(`/year/missed/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}/${unitID}`, {method: 'PUT'})
+				// let missedUnit = document.createElement('button');
+				// missedUnit.classList.add('missedButton');
+				// missedUnit.addEventListener('click', () => {
+				// 	const unitID = thisItem.unitID;
+				// 	fetch(`/year/missed/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}/${unitID}`, {method: 'PUT'})
 
-				location.reload();
-			});
+				// 	location.reload();
+				// });
 
-			if(thisItem.missed) {
-				thisItemElement.classList.add('missedUnit')
+				// if(thisItem.missed) {
+				// 	thisItemElement.classList.add('missedUnit')
+				// }
+
+				thisItemElement.appendChild(clearDay);
+				// thisItemElement.appendChild(missedUnit)
 			}
-
-			thisItemElement.appendChild(clearDay);
-			thisItemElement.appendChild(missedUnit)
+			
 		})
 	})
 

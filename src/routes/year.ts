@@ -126,23 +126,36 @@ router.get('/req/:year/:month', async (req, res) => {
 
 router.put('/req/:year/:month/:day/:cell/:unit/:company', async (req, res) => {
 	let thisUnit = req.params.unit.replace(/-/g, '/');
-	let thisSchedule = await Schedule.findOne({unit: thisUnit, company: req.params.company});
+	let thisSchedule = await Schedule.find({unit: thisUnit, company: req.params.company});
+
+	//WILL GET MULTIPLE RESULTS
+	//GOTTA GO THROUGH EACH MONTH
 
 	let newSchedule = [];
 
-	thisSchedule.schedule.forEach(scheduleItem => {
-		const thisYear = Number(req.params.year);
-		const thisMonth = req.params.month;
-		const thisDay = Number(req.params.day);
-		const thisCell = Number(req.params.cell);
-
-		if(scheduleItem.year === thisYear && months[scheduleItem.month] === thisMonth && scheduleItem.day === thisDay && scheduleItem.cell === thisCell) {
-			// console.log('go', scheduleItem)
-		} else {
-			newSchedule.push(scheduleItem)
-			// console.log('no go', scheduleItem)
-		}
+	thisSchedule.forEach(monthSchedule => {
+		monthSchedule.schedule.forEach((scheduleItem, scheduleIndex) => {
+			const thisYear = Number(req.params.year);
+			const thisMonth = req.params.month;
+			const thisDay = Number(req.params.day);
+			const thisCell = Number(req.params.cell);
+	
+			// console.log('Year: ', thisYear, scheduleItem.year);
+			// console.log('Month: ', thisMonth, months[scheduleItem.month]);
+			// console.log('Day: ', thisDay, scheduleItem.day);
+			// console.log('Cell: ', thisCell, scheduleItem.cell)
+	
+			if(scheduleItem.year === thisYear && months[scheduleItem.month] === thisMonth && scheduleItem.day === thisDay && scheduleItem.cell === thisCell) {
+				// thisSchedule.schedule.splice(scheduleIndex, 1);
+				// console.log('deleting')
+				// console.log('go', scheduleItem)
+			} else {
+				newSchedule.push(scheduleItem)
+				// console.log('no go', scheduleItem)
+			}
+		})
 	})
+	
 
 	await Schedule.findOneAndUpdate(
 		{unit: thisUnit, company: req.params.company},
@@ -221,6 +234,11 @@ router.get('/:year/:month', async (req, res) => {
 		}
 	});
 
+	//In getRequestedYearUnits, attempted to add /MVI to the inspection. It would not save. This is the best work around.
+	monthUnits.forEach(item => {
+		if(item.MVI) item.inspection += '/MVI'
+	})
+
 	const monthUnitsByCompany = sortMonthUnitsByCompany(monthUnits);
 
 	const monthDays = buildMonth(requestedMonthNumber, requestedYear);
@@ -238,8 +256,6 @@ router.get('/:year/:month', async (req, res) => {
 		}
 		
 	});
-
-	
 
 	const HTMLMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -261,7 +277,7 @@ router.post('/:year/:month', (req, res) => {
 	const specification = req.body.specification
 
 	const existingCustomUnit = CustomUnit.find({name: unitName, company: companyName, inspection: inspection, year: year, month: requestedMonthNumber, specification: specification});
-
+	
 	if(existingCustomUnit) {
 
 		CustomUnit.create({

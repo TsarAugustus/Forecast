@@ -12,7 +12,8 @@ async function getRequestedYearUnits(requestedYear) {
             inspection: '',
             month: 0,
             spec: '',
-            id: ''
+            id: '',
+            MVI: false
         };
         thisUnit.company = unit.company;
         thisUnit.unit = unit.name;
@@ -21,15 +22,22 @@ async function getRequestedYearUnits(requestedYear) {
             if (unitYear === 0) {
                 continue;
             }
-            const unitMonth = Number(unit.inspections[inspection].month);
-            const interval = Number(unit.inspections[inspection].interval);
-            for (let i = unitYear; i <= requestedYear; i += interval) {
-                if (i === requestedYear) {
-                    thisUnit.month = unitMonth;
-                    thisUnit.inspection += inspection;
-                    thisUnit.spec = unit.spec;
-                    thisUnit.id = unit.id;
+            if (inspection !== 'MVI') {
+                const unitMonth = Number(unit.inspections[inspection].month);
+                const interval = Number(unit.inspections[inspection].interval);
+                for (let i = unitYear; i <= requestedYear; i += interval) {
+                    if (i === requestedYear) {
+                        thisUnit.month = unitMonth;
+                        thisUnit.inspection += inspection;
+                        thisUnit.spec = unit.spec;
+                        thisUnit.id = unit.id;
+                    }
                 }
+            }
+            else if (inspection === 'MVI') {
+                // thisUnit.inspection += '/MVI';
+                thisUnit.MVI = true;
+                //Only 407 units were getting /MVI added to their inspections. This is a terrible work around
             }
         }
         if (thisUnit.company !== '' && thisUnit.unit !== '' && thisUnit.inspection !== '') {

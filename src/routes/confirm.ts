@@ -17,7 +17,6 @@ router.post('/', async (req, res) => {
 	};
 
 	const existingUnitSchedule = await Schedule.findOne({unit: thisUnit.name, company: thisUnit.company, unitID: unitID})
-
 	if(existingUnitSchedule) {
 
 		let scheduleMerge = existingUnitSchedule.schedule.concat(newSchedule.schedule);

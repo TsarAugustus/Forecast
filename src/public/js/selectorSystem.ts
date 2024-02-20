@@ -1,38 +1,23 @@
 function selectorSystem() {
 	let selectedUnit;
 	let selectedDays = [];
-	let toggleBool = false;
 
-	let editCheckbox = document.querySelectorAll('.editCheckbox');
+	let hideSidebarbutton = document.querySelectorAll('.hideSidebar');
 
-	let initSidebar = document.querySelectorAll('.sidebar');
-	// initSidebar.forEach(thisSidebar => {
-	// 	thisSidebar['style'].display = 'none'
-	// });
+	hideSidebarbutton.forEach(button => {
+		
+		let sidebar = document.querySelectorAll('.sidebar');
+		sidebar.forEach(item => item['style']['display'] = 'none');
 
-	editCheckbox.forEach(checkbox => {
-		checkbox.addEventListener('click', () => {
-			let sidebar = document.querySelectorAll('.sidebar');
-			toggleBool = !toggleBool;
-			sidebar.forEach(thisSidebar => {
-				if(toggleBool === false) {
-					thisSidebar['style'].display = 'none'
+		button.addEventListener('click', () => {
+
+			sidebar.forEach(item => {
+				if(item['style']['display'] === 'none') {
+					item['style']['display'] = 'block';
+					button.innerHTML = 'Hide Sidebar';
 				} else {
-					thisSidebar['style'].display = 'block'
-				}
-			})
-		})
-	})
-
-	editCheckbox.forEach(checkbox => {
-		checkbox.addEventListener('click', () => {
-			let sidebar = document.querySelectorAll('.sidebar');
-			toggleBool = !toggleBool;
-			sidebar.forEach(thisSidebar => {
-				if(toggleBool === false) {
-					thisSidebar['style'].display = 'none'
-				} else {
-					thisSidebar['style'].display = 'block'
+					item['style']['display'] = 'none';
+					button.innerHTML = 'Show Sidebar'
 				}
 			})
 		})

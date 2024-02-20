@@ -2,7 +2,8 @@ const XLSX = require('xlsx');
 const ExcelDateToJSDate = require('./ExcelDateToJSDate');
 
 function matrixController() {
-	const workbook = XLSX.readFile('./uploads/log.xlsx');
+	// const workbook = XLSX.readFile('./uploads/log.xlsx');
+	const workbook = XLSX.readFile('./uploads/B620.xlsx');
 	const sheetNameList = workbook.SheetNames;
 	
 	let newControlSheetResult = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
