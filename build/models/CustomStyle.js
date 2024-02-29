@@ -5,13 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema, model } = mongoose_1.default;
-const UnitSchema = new Schema({
-    name: String,
+const StyleSchema = new Schema({
     company: String,
-    inspections: Object,
-    spec: String,
-    shop: { type: String, default: 'Surrey' },
-    uniqueName: { type: String, unique: true }
+    backgroundColor: String,
+    borderColor: String,
+    textColor: String
 });
-const Unit = model('Unit', UnitSchema);
-module.exports = Unit;
+const Style = model('Style', StyleSchema);
+module.exports = Style;

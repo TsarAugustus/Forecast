@@ -3,14 +3,23 @@ async function getSchedule() {
     const thisSplit = window.location.href.split('/');
     const thisYear = thisSplit[4];
     const thisMonth = thisSplit[5];
-    let thisSchedule = await fetch(`/year/req/${thisYear}/${thisMonth}`).then(data => {
+    const thisShop = thisSplit[6];
+    let thisSchedule = await fetch(`/year/req/${thisYear}/${thisMonth}/${thisShop}`).then(data => {
         return data.json();
     });
     thisSchedule.forEach(scheduleItem => {
-        scheduleItem.schedule.forEach(thisItem => {
+        scheduleItem.schedule.forEach(async (thisItem) => {
             let thisItemElement = document.getElementById(`${thisItem.day}-${months[thisItem.month]}-${thisItem.year}-${thisItem.cell}`);
             if (thisItemElement) {
                 thisItemElement.classList.add(scheduleItem.company.replace(/\s+/g, '-'));
+                let customerStyles = await fetch(`/year/color/${scheduleItem.company}`).then(data => {
+                    return data.json();
+                });
+                if (customerStyles) {
+                    thisItemElement['style'].backgroundColor = `#${customerStyles.backgroundColor}`;
+                    thisItemElement['style'].border = `1px solid #${customerStyles.borderColor}`;
+                    thisItemElement['style'].color = `#${customerStyles.textColor}`;
+                }
                 // thisItemElement.innerHTML = `${scheduleItem.company}-${scheduleItem.unit}`;
                 let selectorInformation = document.createElement('div');
                 selectorInformation.classList.add('scheduledItem');
@@ -29,7 +38,10 @@ async function getSchedule() {
                 // clearDay.innerHTML = 'X';
                 clearDay.addEventListener('click', () => {
                     if (confirm('Are you sure you want to remove this unit from the schedule?')) {
-                        fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}`, { method: 'PUT' });
+                        const thisSplit = window.location.href.split('/');
+                        const thisShop = thisSplit[6];
+                        console.log(thisShop);
+                        fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}/${thisShop}`, { method: 'PUT' });
                     }
                     else {
                         console.log('no confirm');

@@ -7,7 +7,8 @@ const CustomInspectionSchema = new Schema({
 	inspection: String,
 	year: Number,
 	month: Number,
-	unitID: String
+	unitID: String,
+	shop: {type: String, default: 'Surrey'}
 	// uniqueName: { type: String, unique: true}
 });
 

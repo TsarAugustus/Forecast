@@ -7,17 +7,28 @@ div.sidebar
 				input(type="text", placeholder='Unit Name', name='unitName')
 				input(type="text", placeholder='Inspection', name='inspection')
 				input(type="text", placeholder='Specification', name='specification')
+				input(type="text", placeholder='Shop - Surrey/Nanaimo', name='shop')
 				button Submit
 	each company in monthUnitsByCompany
 		div.sidebar-CompanyDiv
 			div.sidebar-CompanyHeader
 				span #{company.name}
 			each unit in company.units
-				div(data-unit=unit.unit, data-customer=company.name, data-inspection=unit.inspection, data-id=unit.id class=company.name.replace(/\s+/g, '-')).sidebar-UnitHeader
-					span #{unit.unit.replace(/-/g, '/')}
-					span #{unit.inspection}
-					span #{unit.spec}
-					button(data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).clearAllButton Clear
-					if unit._id
-						button(data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).deleteUnitButton Delete
-					button(data-unit=unit.unit, data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).editUnitButton Edit
+				if(company.style)
+					div(style=`background-color: #${company.style.backgroundColor}; border: 1px solid #${company.style.borderColor}; color: #${company.style.textColor};`, data-shop=unit.shop, data-unit=unit.unit, data-customer=company.name, data-inspection=unit.inspection, data-id=unit.id class=company.name.replace(/\s+/g, '-')).sidebar-UnitHeader
+						span #{unit.unit.replace(/-/g, '/')}
+						span #{unit.inspection}
+						span #{unit.spec}
+						button(data-shop=unit.shop, data-inspection=unit.inspection, data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).clearAllButton Clear
+						if unit._id
+							button(data-shop=unit.shop, data-inspection=unit.inspection, data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).deleteUnitButton Delete
+						button(data-shop=unit.shop, data-inspection=unit.inspection, data-unit=unit.unit, data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).editUnitButton Edit
+				else
+					div(data-shop=unit.shop, data-unit=unit.unit, data-customer=company.name, data-inspection=unit.inspection, data-id=unit.id class=company.name.replace(/\s+/g, '-')).sidebar-UnitHeader
+						span #{unit.unit.replace(/-/g, '/')}
+						span #{unit.inspection}
+						span #{unit.spec}
+						button(data-shop=unit.shop, data-inspection=unit.inspection, data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).clearAllButton Clear
+						if unit._id
+							button(data-shop=unit.shop, data-inspection=unit.inspection, data-unit=unit.unit.replace(/\//g, '-'), data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).deleteUnitButton Delete
+						button(data-shop=unit.shop, data-inspection=unit.inspection, data-unit=unit.unit, data-customer=company.name, data-year=requestedYear, data-month=requestedMonth, data-id=unit.id).editUnitButton Edit

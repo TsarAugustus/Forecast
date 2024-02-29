@@ -2,3 +2,4 @@ node_modules
 OLD-build
 OLD-src
 .env
+uploads

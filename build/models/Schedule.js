@@ -10,6 +10,7 @@ const ScheduleSchema = new Schema({
     company: String,
     inspection: String,
     unitID: String,
+    shop: { type: String, default: 'Surrey' },
     schedule: [{
             day: Number,
             month: Number,

@@ -12,7 +12,6 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-const Company = require('./models/Company'); //depreciated?
 require('dotenv').config();
 const init = require('./controllers/init');
 const URI = process.env.DEVELOPMENT_URI;
@@ -38,6 +37,14 @@ const index = require('./routes/index');
 app.use('/', index);
 const file = require('./routes/file');
 app.use('/file', file);
+app.get('/current/:shop', (req, res) => {
+    const thisShop = req.params.shop;
+    const newDate = new Date();
+    const thisYear = newDate.getFullYear();
+    const thisMonth = newDate.getMonth();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    res.redirect(`/year/${thisYear}/${months[thisMonth]}/${thisShop}`);
+});
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

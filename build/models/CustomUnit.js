@@ -11,7 +11,8 @@ const CustomUnitSchema = new Schema({
     inspection: String,
     year: Number,
     month: Number,
-    spec: String
+    spec: String,
+    shop: { type: String, default: 'Surrey' }
     // uniqueName: { type: String, unique: true}
 });
 const CustomUnit = model('CustomUnit', CustomUnitSchema);

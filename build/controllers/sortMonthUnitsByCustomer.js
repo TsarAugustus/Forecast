@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function sortMonthUnitsByCompany(monthUnits) {
+function sortMonthUnitsByCustomer(monthUnits) {
     let companies = [];
     monthUnits.forEach(unit => {
         if (!companies.find(company => company.name === unit.company)) {
@@ -18,4 +18,4 @@ function sortMonthUnitsByCompany(monthUnits) {
     });
     return companies;
 }
-module.exports = sortMonthUnitsByCompany;
+module.exports = sortMonthUnitsByCustomer;

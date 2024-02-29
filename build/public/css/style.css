@@ -36,7 +36,11 @@ body {
 	margin-left: 0.25em;
 	margin-right: 0.25em; */
 
-	/* min-height: 100vh; */
+	/* height: 100vh; */
+}
+
+.Saturday, .Sunday {
+	background-color: #C9C9C9;
 }
 
 .calendarDay a {
@@ -136,9 +140,28 @@ body {
 	flex-direction: row;
 }
 
+.shopList {
+	display: flex;
+	flex-direction: row;
+	align-items: end;
+	justify-content: space-between;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.shopList > div {
+	border: 1px solid black;
+	/* margin-left: 1em;
+	margin-right: 1em; */
+}
+
+.shopList > div:focus {
+	/* background-color: red; */
+}
+
 .monthNavigation {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	flex-grow: 1;
 	align-items: end;
 }
@@ -165,11 +188,16 @@ body {
 
 }
 
+.monthHeader {
+	padding-top: 2.5em;
+	text-align: center;
+}
+
 /* ===== ===== ===== ===== START OF SIDEBAR ===== ===== ===== ===== ===== */
 
 .sidebar {
 	border: 1px solid black;
-	padding-top: 3em;
+	/* padding-top: 3em; */
 	min-width: 20%;
 	max-width: 20%;
 	max-height: 150vh;
@@ -202,6 +230,10 @@ body {
 	width: 25%;
 }
 
+.colorWheelDiv {
+	width: 3em;
+}
+
 .createUnitDiv {
 
 }
@@ -222,6 +254,15 @@ body {
 	/* position: absolute;
 	right: 0 */
 	width: 20%;
+}
+
+.editing {
+	height: 4em;
+}
+
+.editDiv {
+	display: flex;
+	flex-direction: column !important;
 }
 
 /* ===== ===== ===== ===== ===== END OF SIDEBAR ===== ===== ===== ===== ===== */

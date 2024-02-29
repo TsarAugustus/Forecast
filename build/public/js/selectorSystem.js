@@ -76,6 +76,8 @@ function selectorSystem() {
             xhr.setRequestHeader('Content-Type', 'application/json');
             let dayArray = [];
             let unitID = selectedUnit.dataset.id;
+            const thisSplit = window.location.href.split('/');
+            const thisShop = thisSplit[6];
             selectedDays.forEach(day => {
                 let thisDaySplit = day.id.split('-');
                 let thisDay = thisDaySplit[0];
@@ -118,7 +120,8 @@ function selectorSystem() {
             };
             const body = JSON.stringify({
                 unit: thisUnit,
-                schedule: dayArray
+                schedule: dayArray,
+                shop: thisShop
             });
             xhr.send(body);
             location.reload();

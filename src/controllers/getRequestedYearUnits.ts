@@ -1,8 +1,8 @@
 const Unit = require('../models/Unit');
 const sanitizeUnitInspections = require('./sanitizeUnitInspections');
 
-async function getRequestedYearUnits(requestedYear) {
-	const unitList = await Unit.find({});
+async function getRequestedYearUnits(requestedYear, shop) {
+	const unitList = await Unit.find({shop: shop});
 
 	let unitYearArray = [];
 
@@ -14,6 +14,7 @@ async function getRequestedYearUnits(requestedYear) {
 			month: 0,
 			spec: '',
 			id: '',
+			shop: '',
 			MVI: false
 		}
 
@@ -36,6 +37,7 @@ async function getRequestedYearUnits(requestedYear) {
 						thisUnit.inspection += inspection;
 						thisUnit.spec = unit.spec;
 						thisUnit.id = unit.id;
+						thisUnit.shop = unit.shop;
 					}
 				}
 			} else if(inspection === 'MVI') {

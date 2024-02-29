@@ -6,6 +6,7 @@ const UnitSchema = new Schema({
 	company: String,
 	inspections: Object,
 	spec: String,
+	shop: { type: String, default: 'Surrey'},
 	uniqueName: { type: String, unique: true}
 });
 

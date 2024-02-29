@@ -8,7 +8,10 @@ function clearUnitSchedule() {
 			let thisYear = button['dataset'].year;
 			let thisMonth = button['dataset'].month;
 			
-			fetch(`/year/${thisYear}/${thisMonth}/${thisUnit}/${thisCustomer}`, {method: 'DELETE'})
+			const thisSplit = window.location.href.split('/');
+			const thisShop = thisSplit[6];
+			
+			fetch(`/year/${thisYear}/${thisMonth}/${thisUnit}/${thisCustomer}/${thisShop}`, {method: 'DELETE'})
 			location.reload();
 		})
 	})

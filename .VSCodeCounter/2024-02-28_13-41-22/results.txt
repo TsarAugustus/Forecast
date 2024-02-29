@@ -1,0 +1,79 @@
+Date : 2024-02-28 13:41:22
+Directory : c:\Users\kiwi_\Documents\Programming\Forecast\src
+Total : 43 files,  1979 codes, 338 comments, 569 blanks, all 2886 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |         36 |      1,546 |        120 |        453 |      2,119 |
+| CSS        |          2 |        267 |        184 |        107 |        558 |
+| Pug        |          5 |        166 |         34 |          9 |        209 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                           | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                              |         43 |      1,979 |        338 |        569 |      2,886 |
+| . (Files)                                                                                      |          1 |         44 |          1 |         20 |         65 |
+| controllers                                                                                    |         14 |        667 |         44 |        166 |        877 |
+| models                                                                                         |          6 |         80 |          2 |         18 |        100 |
+| public                                                                                         |         11 |        604 |        236 |        227 |      1,067 |
+| public\css                                                                                     |          2 |        267 |        184 |        107 |        558 |
+| public\js                                                                                      |          9 |        337 |         52 |        120 |        509 |
+| routes                                                                                         |          6 |        418 |         21 |        129 |        568 |
+| views                                                                                          |          5 |        166 |         34 |          9 |        209 |
+| views (Files)                                                                                  |          4 |        132 |         34 |          8 |        174 |
+| views\includes                                                                                 |          1 |         34 |          0 |          1 |         35 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                       | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\app.ts                                       | TypeScript |         44 |          1 |         20 |         65 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\ExcelDateToJSDate.ts             | TypeScript |          5 |          0 |          3 |          8 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\getNewWorkbookItemInspections.ts | TypeScript |         45 |          1 |         11 |         57 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\getOldWorkbookItemInspections.ts | TypeScript |         54 |          1 |         12 |         67 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\getRequestedYearUnits.ts         | TypeScript |         61 |          3 |         20 |         84 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\init.ts                          | TypeScript |        112 |          7 |         31 |        150 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\inspectionLimits.ts              | TypeScript |         39 |          3 |          3 |         45 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\inspectionList.ts                | TypeScript |         48 |          0 |          2 |         50 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\matrixController.ts              | TypeScript |        198 |          2 |         39 |        239 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\retrieveInformation.ts           | TypeScript |         10 |          4 |          6 |         20 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\retrieveMVIInformation.ts        | TypeScript |          9 |          0 |          7 |         16 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\sanitizeCompanyName.ts           | TypeScript |         32 |          0 |          4 |         36 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\sanitizeUnitInspections.ts       | TypeScript |         17 |          0 |          6 |         23 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\sanitizeUnitName.ts              | TypeScript |         17 |         23 |         15 |         55 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\controllers\sortMonthUnitsByCustomer.ts      | TypeScript |         20 |          0 |          7 |         27 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\models\CustomInspection.ts                   | TypeScript |         13 |          1 |          3 |         17 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\models\CustomStyle.ts                        | TypeScript |         10 |          0 |          3 |         13 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\models\CustomUnit.ts                         | TypeScript |         13 |          1 |          3 |         17 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\models\MissedUnits.ts                        | TypeScript |         13 |          0 |          3 |         16 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\models\Schedule.ts                           | TypeScript |         19 |          0 |          3 |         22 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\models\Unit.ts                               | TypeScript |         12 |          0 |          3 |         15 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\css\style.css                         | CSS        |        206 |         25 |         59 |        290 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\css\unitStyling.css                   | CSS        |         61 |        159 |         48 |        268 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\clearUnitSchedule.ts               | TypeScript |         16 |          0 |          5 |         21 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\create.ts                          | TypeScript |         11 |          0 |          5 |         16 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\deleteUnit.ts                      | TypeScript |         14 |          0 |          4 |         18 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\editUnit.ts                        | TypeScript |         85 |         12 |         34 |        131 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\getSchedule.ts                     | TypeScript |         52 |         17 |         22 |         91 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\init.ts                            | TypeScript |          9 |          0 |          3 |         12 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\months.ts                          | TypeScript |          1 |          0 |          1 |          2 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\selectorSystem.ts                  | TypeScript |        123 |          4 |         30 |        157 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\public\js\shopDropDown.ts                    | TypeScript |         26 |         19 |         16 |         61 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\routes\api.ts                                | TypeScript |         13 |          0 |         11 |         24 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\routes\confirm.ts                            | TypeScript |         32 |          0 |         11 |         43 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\routes\file.ts                               | TypeScript |         30 |          8 |         13 |         51 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\routes\index.ts                              | TypeScript |          7 |          0 |          3 |         10 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\routes\matrix.ts                             | TypeScript |          9 |          0 |          6 |         15 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\routes\year.ts                               | TypeScript |        327 |         13 |         85 |        425 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\views\includes\sidebar.pug                   | Pug        |         34 |          0 |          1 |         35 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\views\index.pug                              | Pug        |         22 |          0 |          1 |         23 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\views\matrix.pug                             | Pug        |         52 |         33 |          1 |         86 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\views\month.pug                              | Pug        |         54 |          1 |          4 |         59 |
+| c:\Users\kiwi_\Documents\Programming\Forecast\src\views\year.pug                               | Pug        |          4 |          0 |          2 |          6 |
+| Total                                                                                          |            |      1,979 |        338 |        569 |      2,886 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

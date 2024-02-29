@@ -1,4 +1,4 @@
-function sortMonthUnitsByCompany(monthUnits) {
+function sortMonthUnitsByCustomer(monthUnits) {
 	let companies = [];
 	monthUnits.forEach(unit => {
 		
@@ -22,5 +22,5 @@ function sortMonthUnitsByCompany(monthUnits) {
 	return companies;
 }
 
-module.exports = sortMonthUnitsByCompany;
+module.exports = sortMonthUnitsByCustomer;
 export {};
