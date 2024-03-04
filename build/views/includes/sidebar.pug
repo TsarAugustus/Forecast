@@ -7,7 +7,10 @@ div.sidebar
 				input(type="text", placeholder='Unit Name', name='unitName')
 				input(type="text", placeholder='Inspection', name='inspection')
 				input(type="text", placeholder='Specification', name='specification')
-				input(type="text", placeholder='Shop - Surrey/Nanaimo', name='shop')
+				//- input(type="text", placeholder='Shop - Surrey/Nanaimo', name='shop')
+				select(name='shop') Select a shop
+					option(value='Surrey') Surrey
+					option(value='Nanaimo') Nanaimo
 				button Submit
 	each company in monthUnitsByCompany
 		div.sidebar-CompanyDiv
