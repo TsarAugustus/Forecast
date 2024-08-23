@@ -19,14 +19,15 @@ router.post('/', async (req, res) => {
 		unitID: unitID,
 		shop: thisShop
 	};
-
-	const existingUnitSchedule = await Schedule.findOne({unit: thisUnit.name, company: thisUnit.company, unitID: unitID, shop: thisShop})
+	console.log(thisUnit.name, thisUnit.company, unitID, thisShop)
+	const existingUnitSchedule = await Schedule.findOne({unit: thisUnit.name, company: thisUnit.company, shop: thisShop});
+	console.log(existingUnitSchedule)
 	if(existingUnitSchedule) {
 
 		let scheduleMerge = existingUnitSchedule.schedule.concat(newSchedule.schedule);
 
 		await Schedule.findOneAndUpdate(
-			{unit: thisUnit.name, company: thisUnit.company, unitID: unitID, shop: thisShop},
+			{unit: thisUnit.name, company: thisUnit.company, shop: thisShop},
 			{ $set: { schedule: scheduleMerge }}
 		)
 

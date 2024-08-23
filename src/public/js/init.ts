@@ -4,8 +4,11 @@ function init() {
 	let thisDateMonth = thisDate.getMonth();
 	let thisDateYear = thisDate.getFullYear();
 
-	let thisDateDiv = document.getElementById(`${thisDateDay}-${months[thisDateMonth]}-${thisDateYear}`)
-	thisDateDiv.style['border'] = '3px solid green'
+	let thisDateDiv = document.getElementById(`${thisDateDay}-${months[thisDateMonth]}-${thisDateYear}`);
+	if(thisDateDiv) {
+		thisDateDiv.style['border'] = '5px solid green';
+		thisDateDiv.style['border-radius'] = '1em';
+	}
 }
 
 init();

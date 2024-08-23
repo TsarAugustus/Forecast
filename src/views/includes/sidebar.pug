@@ -1,17 +1,31 @@
+- var j = 0
+
 div.sidebar
 	div.createUnitDiv
 		button.createButton Add Item to Calendar
 		div.unitCreationDiv.hide
-			form(action=`/year/${requestedYear}/${requestedMonth}`, method='POST')
-				input(type="text", placeholder='Company', name='companyName')
+			form(action=`/year/${requestedYear}/${requestedMonth}`, method='POST', id='CreateUnitForm')
+				//- input(type="text", placeholder='Company', name='companyName')
+				select(name='companyName', id='CompanyDropDown')
+					each companyName in FilteredCompanyList
+						if i === 1
+							option(value=`${companyName}`, selected) #{companyName}
+						else
+							option(value=`${companyName}`) #{companyName}
+						- i++
 				input(type="text", placeholder='Unit Name', name='unitName')
 				input(type="text", placeholder='Inspection', name='inspection')
-				input(type="text", placeholder='Specification', name='specification')
+				//- input(type="text", placeholder='Specification', name='specification')
+				select(name='specification')
+					option 406
+					option 407
+					option 331
+					option IBC
 				//- input(type="text", placeholder='Shop - Surrey/Nanaimo', name='shop')
 				select(name='shop') Select a shop
 					option(value='Surrey') Surrey
 					option(value='Nanaimo') Nanaimo
-				button Submit
+				button(id='CreateUnitFormSubmitButton') Submit
 	each company in monthUnitsByCompany
 		div.sidebar-CompanyDiv
 			div.sidebar-CompanyHeader

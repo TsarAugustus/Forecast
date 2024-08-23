@@ -2,6 +2,57 @@
 	font-family: 'Helvetica';
 } */
 
+/* .calendarDay {
+	container-type: inline-size;
+	co
+}
+
+.monthNavigation{
+	container-type: inline-size;
+}
+
+@container test (width < 1000px) {
+	.calendarDay span {
+		font-size: 0.5em !important;
+		color: inherit !important;
+	}
+
+	.monthNavigation a {
+		font-size: 0.5em !important;
+		color: inherit !important;
+	}
+} */
+
+@media (width <= 1366px) {
+	/* .calendarDay span{
+		color: red
+	} */
+
+	.monthNavigation a {
+		font-size: 0.75em;
+	}
+	.shopList div {
+		font-size: 0.75em;
+	}
+
+	.navigationButtons button{
+		font-size: 0.6em;
+	}
+
+	.navigation img {
+		transform: scale(0.75);
+	}
+
+	.day {
+		font-size: 0.6em;
+	}
+}
+
+.day {
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
 * {
 	font-family: 'Inter' !important;
 	margin: 0;
@@ -134,25 +185,43 @@ body {
 
 .navigation {
 	border: 1px solid black;
-	background-color: gray;
+	background-color: rgb(187, 196, 229);
+	height: 5em;
+	max-height: 5em;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+	/* justify-content: space-between; */
+	box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.5);
+}
+
+#navlogo {
+	max-width: 100%;
+	max-height: 5em;
+	object-fit: contain;
 }
 
 .shopList {
 	display: flex;
+	width: 7%;
 	flex-direction: row;
 	align-items: end;
 	justify-content: space-between;
 	margin-left: 1em;
 	margin-right: 1em;
+
 }
 
 .shopList > div {
 	border: 1px solid black;
+	padding: 0.5em 1em;
+	background-color: gray;
 	/* margin-left: 1em;
 	margin-right: 1em; */
+}
+
+.shopList > div:hover {
+	filter: brightness(75%)
 }
 
 .shopList > div:focus {
@@ -161,9 +230,11 @@ body {
 
 .monthNavigation {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-evenly;
+	/* justify-content: end; */
 	flex-grow: 1;
 	align-items: end;
+	font-size: larger;
 }
 
 .monthNavigation > a {
@@ -178,18 +249,48 @@ body {
 .navigationButtons {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+}
+
+.navigationButtons button {
+	background-color: white;
 }
 
 .calendarSubmit {
+	visibility: hidden;
 
+	background-color: #04AA6D !important;
+	border: none;
+	padding: 0.5em 1em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1em;
+}
+
+.calendarSubmit:hover {
+	filter: brightness(75%)
 }
 
 .hideSidebar {
+	/* text-decoration: none;
+	border: none; */
+	/* background-color: #04AA6D !important; */
+	border: none;
+	/* color: white; */
+	padding: 0.5em 1em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1em;
+}
 
+.hideSidebar:hover {
+	filter: brightness(75%)
 }
 
 .monthHeader {
-	padding-top: 2.5em;
+	padding-top: 3em;
 	text-align: center;
 }
 
@@ -197,12 +298,19 @@ body {
 
 .sidebar {
 	border: 1px solid black;
+	border-radius: 1em;
 	/* padding-top: 3em; */
+	/* padding: 0.5em; */
 	min-width: 20%;
 	max-width: 20%;
-	max-height: 150vh;
-	overflow-y: scroll;
+	max-height: 90vh;
+	/* overflow-y: scroll; */
 	margin-right: 1em;
+	position: sticky;
+	align-self: flex-start;
+	top: 5em;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .sidebar-CompanyDiv {
@@ -234,6 +342,11 @@ body {
 	width: 3em;
 }
 
+#CreateUnitForm {
+	display: flex;
+	flex-direction: column;
+}
+
 .createUnitDiv {
 
 }
@@ -244,6 +357,11 @@ body {
 
 .unitCreationDiv > input {
 	min-width: 100%;
+}
+
+#CompanyDropDown > option{
+	/* background-color: red; */
+	min-width: 100%
 }
 
 .highlight {
@@ -278,6 +396,11 @@ body {
 table, th, td {
 	border: 1px solid black;
 	text-align: center;
+}
+
+th, td {
+	min-width: 10em;
+	max-width: 10em;
 }
 
 table {

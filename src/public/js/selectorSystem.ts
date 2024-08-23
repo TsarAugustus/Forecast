@@ -5,6 +5,7 @@ function selectorSystem() {
 	let hideSidebarbutton = document.querySelectorAll('.hideSidebar');
 
 	hideSidebarbutton.forEach(button => {
+		button['style']['background'] = '#04AA6D';
 		
 		let sidebar = document.querySelectorAll('.sidebar');
 		sidebar.forEach(item => item['style']['display'] = 'none');
@@ -15,9 +16,17 @@ function selectorSystem() {
 				if(item['style']['display'] === 'none') {
 					item['style']['display'] = 'block';
 					button.innerHTML = 'Hide Sidebar';
+					button['style']['background'] = '#AF1B3F';
+					button['style']['color'] = 'white';
+					// document.getElementById('CalendarSubmit')['style']['background'] = '#04AA6D'
+					document.getElementById('CalendarSubmit')['style']['visibility'] = 'visible'
 				} else {
 					item['style']['display'] = 'none';
 					button.innerHTML = 'Show Sidebar'
+					button['style']['background'] = '#04AA6D';
+					button['style']['color'] = 'black';
+					// document.getElementById('CalendarSubmit')['style']['background'] = 'red'
+					document.getElementById('CalendarSubmit')['style']['visibility'] = 'hidden'
 				}
 			})
 		})
@@ -80,9 +89,18 @@ function selectorSystem() {
 	})
 
 	//Confirm Selection
-	let confirmButton = document.querySelectorAll('.calendarSubmit')
+	let confirmButton = document.querySelectorAll('.calendarSubmit');
+
 	confirmButton.forEach(button => {
-		button.addEventListener('click', () => {
+		button.addEventListener('click', (e) => {
+			if(button.classList.contains('Submitting')) {
+				e.preventDefault();
+			}
+			
+			button.setAttribute('disabled', '')
+
+			button.classList.add('Submitting')
+
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', '/confirm');
 			xhr.setRequestHeader('Content-Type', 'application/json');
@@ -150,7 +168,7 @@ function selectorSystem() {
 			xhr.send(body);
 			location.reload();
 		})
-	})
+	});
 }
 
 selectorSystem();

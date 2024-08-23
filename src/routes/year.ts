@@ -352,7 +352,31 @@ router.get('/:year/:month/:shop', async (req, res) => {
 
 	const HTMLMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-	res.render('month', { monthUnits: monthUnits, monthUnitsByCompany: monthUnitsByCompany, requestedYear: requestedYear, requestedMonth: requestedMonth, monthDays: monthDays, HTMLMonths: HTMLMonths, shop: shop})
+	// router.get('/customerList', async(req, res) => {
+	// 	let UnitList = await Unit.find({});
+	// 	let UnfilteredCompanyList = ['Smith Tank'];
+	
+	// 	UnitList.forEach(unit => {
+	// 		UnfilteredCompanyList.push(unit.company);
+	// 	});
+	
+	// 	let FilteredCompanyList = [...new Set(UnfilteredCompanyList)].sort((a, b) => a.localeCompare(b));
+		
+	// 	return res.json(FilteredCompanyList);
+	// });
+
+	let UnitList = await Unit.find({});
+	let UnfilteredCompanyList = ['Smith Tank'];
+
+	UnitList.forEach(unit => {
+		UnfilteredCompanyList.push(unit.company);
+	});
+
+	let FilteredCompanyList = [...new Set(UnfilteredCompanyList)].sort((a, b) => a.localeCompare(b));
+	FilteredCompanyList = ['Custom Unit'].concat(FilteredCompanyList);
+	// console.log(FilteredCompanyList)
+
+	res.render('month', { FilteredCompanyList: FilteredCompanyList, monthUnits: monthUnits, monthUnitsByCompany: monthUnitsByCompany, requestedYear: requestedYear, requestedMonth: requestedMonth, monthDays: monthDays, HTMLMonths: HTMLMonths, shop: shop})
 });
 
 router.post('/:year/:month', async (req, res) => {
