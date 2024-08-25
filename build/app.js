@@ -45,6 +45,8 @@ app.get('/current/:shop', (req, res) => {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     res.redirect(`/year/${thisYear}/${months[thisMonth]}/${thisShop}`);
 });
+const inspections = require('./routes/inspections');
+app.use('/inspections', inspections);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

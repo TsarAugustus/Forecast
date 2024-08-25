@@ -8,12 +8,13 @@ html
 	body
 		div.freeze.navigation
 			div.navigationButtons
-				button.calendarSubmit Submit
+				button(id='CalendarSubmit').calendarSubmit Submit
 				button.hideSidebar Show Sidebar
 			div.shopList
 			div.monthNavigation
 				each month of HTMLMonths
-						a(href=`/year/${requestedYear}/${month}/${shop}`) #{month}
+					a(href=`/year/${requestedYear}/${month}/${shop}`) #{month}
+			img(src="/img/logo.png" id='navLogo')
 		h1.monthHeader #{requestedMonth}
 		div.monthView
 			div.calendarDayWrapper
@@ -31,7 +32,7 @@ html
 							- var id = `${day.date}-${requestedMonth}-${requestedYear}`;
 							a(href=`${requestedMonth}/day/${day.date}`)
 								p.day #{day.date} - #{day.day}
-							while i < 6
+							while i < 15
 								div(id=id+'-'+i, class='selector') 
 								- i++
 							- i = 0
@@ -41,7 +42,7 @@ html
 							a(href=`${requestedMonth}/day/${day.date}`)
 								p.day #{day.date} - #{day.day}
 								//-  - #{day.day}
-							while i < 6
+							while i < 15
 								div(id=id+'-'+i, class='selector') 
 								- i++
 							- i = 0
@@ -56,3 +57,4 @@ html
 	script(type='text/javascript', src='/js/editUnit.js')
 	script(type='text/javascript', src='/js/months.js')
 	script(type='text/javascript', src='/js/init.js')
+	script(type='text/javascript', src='/js/getCustomers.js')

@@ -1,0 +1,51 @@
+- let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'];
+html
+	head
+		link(rel='stylesheet', href='/css/style.css')
+	body
+		h1 Unit Listing
+		each company in sortedUnits
+			h3 #{company.name}
+			each unit in company.units
+				table
+					thead
+						tr
+							th Unit Name
+							th Tank Type
+							th V
+							th I
+							th K
+							th P
+							th T 
+							th L
+							th UC
+							th WF
+							th MVI
+					tbody
+						tr
+							td #{unit.name}
+							td #{unit.spec}
+							td #{months[unit.inspections.V.month]}/#{unit.inspections.V.year}
+							td #{months[unit.inspections.I.month]}/#{unit.inspections.I.year}
+							td #{months[unit.inspections.K.month]}/#{unit.inspections.K.year}
+							td #{months[unit.inspections.P.month]}/#{unit.inspections.P.year}
+							td #{months[unit.inspections.T.month]}/#{unit.inspections.T.year}
+							td #{months[unit.inspections.L.month]}/#{unit.inspections.L.year}
+							td #{months[unit.inspections.UC.month]}/#{unit.inspections.UC.year}
+							td #{months[unit.inspections.WF.month]}/#{unit.inspections.WF.year}
+							td #{months[unit.inspections.MVI.month]}/#{unit.inspections.MVI.year}
+					
+						
+		//- each company in sortedUnits
+		//- 	h3 #{company.name}
+		//- 	each unit in company.units
+		//- 		h4 #{unit.name} - #{unit.spec}
+		//- 		p V: #{months[unit.inspections.V.month]}/#{unit.inspections.V.year}
+		//- 		p I: #{months[unit.inspections.I.month]}/#{unit.inspections.I.year}
+		//- 		p K: #{months[unit.inspections.K.month]}/#{unit.inspections.K.year}
+		//- 		p P: #{months[unit.inspections.P.month]}/#{unit.inspections.P.year}
+		//- 		p T: #{months[unit.inspections.T.month]}/#{unit.inspections.T.year}
+		//- 		p L: #{months[unit.inspections.L.month]}/#{unit.inspections.L.year}
+		//- 		p UC: #{months[unit.inspections.UC.month]}/#{unit.inspections.UC.year}
+		//- 		p WF: #{months[unit.inspections.WF.month]}/#{unit.inspections.WF.year}
+		//- 		p MVI: #{months[unit.inspections.MVI.month]}/#{unit.inspections.MVI.year}
