@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     const schedule = thisRequest.schedule;
     const unitID = thisUnit.unitID;
     const thisShop = thisRequest.shop;
-    console.log(thisShop);
+    console.log('SHOP', thisShop);
     let newSchedule = {
         unit: thisUnit.name,
         company: thisUnit.company,
@@ -18,12 +18,16 @@ router.post('/', async (req, res) => {
         unitID: unitID,
         shop: thisShop
     };
-    console.log(thisUnit.name, thisUnit.company, unitID, thisShop);
-    const existingUnitSchedule = await Schedule.findOne({ unit: thisUnit.name, company: thisUnit.company, shop: thisShop });
-    console.log(existingUnitSchedule);
+    console.log('HERE 1', thisUnit.name, thisUnit.company, unitID, thisShop);
+    const existingUnitSchedule = await Schedule.findOne({ unit: thisUnit.name, company: thisUnit.company, shop: thisShop, inspection: thisUnit.inspection });
+    console.log('HERE 2', existingUnitSchedule);
     if (existingUnitSchedule) {
         let scheduleMerge = existingUnitSchedule.schedule.concat(newSchedule.schedule);
-        await Schedule.findOneAndUpdate({ unit: thisUnit.name, company: thisUnit.company, shop: thisShop }, { $set: { schedule: scheduleMerge } });
+        await Schedule.findOneAndUpdate({ unitID: existingUnitSchedule.unitID }, { $set: { schedule: scheduleMerge } });
+        // await Schedule.findOneAndUpdate(
+        // 	{unit: thisUnit.name, company: thisUnit.company, shop: thisShop},
+        // 	{ $set: { schedule: scheduleMerge }}
+        // )
     }
     else {
         Schedule.create(newSchedule);

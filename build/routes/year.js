@@ -150,35 +150,35 @@ router.get('/req/:year/:month/:shop', async (req, res) => {
     return res.json(scheduleToSend);
 });
 router.put('/req/:year/:month/:day/:cell/:unit/:company/:shop', async (req, res) => {
+    // console.log('Server Side: ', req.params.year, req.params.month, req.params.day, req.params.cell, req.params.unit, req.params.company, req.params.shop)
     let thisUnit = req.params.unit.replace(/-/g, '/');
     let thisSchedule = await Schedule.find({ unit: thisUnit, company: req.params.company, shop: req.params.shop });
+    // console.log('Finding Schedule: ', thisSchedule)
     //WILL GET MULTIPLE RESULTS
     //GOTTA GO THROUGH EACH MONTH
     let newSchedule = [];
-    thisSchedule.forEach(monthSchedule => {
-        monthSchedule.schedule.forEach((scheduleItem, scheduleIndex) => {
+    let ID;
+    thisSchedule.forEach(scheduleList => {
+        newSchedule = [];
+        ID = scheduleList.unitID;
+        scheduleList.schedule.forEach((scheduledItem, index) => {
             const thisYear = Number(req.params.year);
-            const thisMonth = req.params.month;
+            // const thisMonth = req.params.month;
+            const thisMonth = months.indexOf(req.params.month);
             const thisDay = Number(req.params.day);
             const thisCell = Number(req.params.cell);
             const thisShop = req.params.shop;
-            // console.log('Year: ', scheduleItem.year, thisYear, scheduleItem.year === thisYear);
-            // console.log('Month: ', months[scheduleItem.month], thisMonth, months[scheduleItem.month] === thisMonth);
-            // console.log('Day: ', scheduleItem.day, thisDay, scheduleItem.day === thisDay);
-            // console.log('Cell: ', scheduleItem.cell, thisCell, scheduleItem.cell === thisCell);
-            if (scheduleItem.year === thisYear && months[scheduleItem.month] === thisMonth && scheduleItem.day === thisDay && scheduleItem.cell === thisCell) {
-                // thisSchedule.schedule.splice(scheduleIndex, 1);
-                // console.log('deleting')
-                // console.log('go', scheduleItem)
-            }
-            else {
-                newSchedule.push(scheduleItem);
-                // console.log('no go', scheduleItem)
+            if (scheduledItem.year === thisYear && scheduledItem.day === thisDay && scheduledItem.month === thisMonth) {
+                scheduleList.schedule.splice(index, 1);
             }
         });
+        newSchedule = scheduleList.schedule;
+        update(ID, newSchedule);
     });
-    await Schedule.findOneAndUpdate({ unit: thisUnit, company: req.params.company, shop: req.params.shop }, { $set: { schedule: newSchedule } });
 });
+async function update(ID, schedule) {
+    await Schedule.findOneAndUpdate({ unitID: ID }, { $set: { schedule: schedule } });
+}
 router.put('/missed/:year/:month/:day/:cell/:unit/:company/:unitID', async (req, res) => {
     const unitYear = Number(req.params.year);
     let unitMonth;

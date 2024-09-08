@@ -41,12 +41,13 @@ async function getSchedule() {
                         const thisSplit = window.location.href.split('/');
                         const thisShop = thisSplit[6];
                         console.log(thisShop);
+                        console.log(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}/${thisShop}`);
                         fetch(`/year/req/${thisItem.year}/${months[thisItem.month]}/${thisItem.day}/${thisItem.cell}/${scheduleItem.unit.replace(/\//g, '-')}/${scheduleItem.company}/${thisShop}`, { method: 'PUT' });
                     }
                     else {
                         console.log('no confirm');
                     }
-                    location.reload();
+                    // location.reload();
                 });
                 // let missedUnit = document.createElement('button');
                 // missedUnit.classList.add('missedButton');

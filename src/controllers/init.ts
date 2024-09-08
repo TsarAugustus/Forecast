@@ -15,7 +15,7 @@ const retrieveMVIInformation = require('./retrieveMVIInformation');
 const getNewWorkbookItemInspections = require('./getNewWorkbookItemInspections');
 const getOldWorkbookItemInspections = require('./getOldWorkbookItemInspections');
 
-const ExcelDateToJSDate = require('./ExcelDateToJsDate')
+const ExcelDateToJSDate = require('./ExcelDateToJSDate')
 
 function sanitizeMVIUnit(name) {
 	if(name !== undefined) {
@@ -75,7 +75,7 @@ function init() {
 		const MVIDate = ExcelDateToJSDate(inspection['Inspection Date']);
 		const MVIUniqueName = `${MVIOwner}-${MVIUnit}`;
 
-		if(MVIDate instanceof Date && isNaN(MVIDate)) {
+		if(MVIDate instanceof Date && !Number.isNaN(MVIDate)) {
 			//Invalid MVI
 			// console.error('NO VALID DATE', inspection)
 		} else {
